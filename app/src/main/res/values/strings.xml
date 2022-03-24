@@ -4,6 +4,8 @@
     <string name="fav_btn">Favorites</string>
     <string name="playlist_btn">Playlists</string>
     <string name="total_songs">Total songs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="now_playing">Now playing</string>
     <string name="song_name">Song name</string>
     <string name="song_artist">Song artist</string>
