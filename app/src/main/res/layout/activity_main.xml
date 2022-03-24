@@ -6,49 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/container"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:tabIndicatorColor="@color/black"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="#9C7272"
+        >
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_bar"></FrameLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemBackground="?selectableItemBackgroundBorderless"
-        app:itemHorizontalTranslationEnabled="true"
-        app:itemIconTint="@drawable/nav_item_color_state"
-        app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/bottom_nav"></com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <ListView
-        android:id="@+id/list_song"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_below="@id/search_bar"
-        android:layout_above="@id/nav_bar"
-        android:layout_marginTop="40dp"></ListView>
-
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/roundcorner"
-        android:backgroundTint="#D3D3D3" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/total_songs"
-        android:layout_below="@id/search_bar"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"></TextView>
-
+        android:id="@+id/view_pager"
+        android:layout_below="@id/tab_layout">
+    </androidx.viewpager2.widget.ViewPager2>
 </RelativeLayout>
