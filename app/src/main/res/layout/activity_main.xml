@@ -1,54 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:id="@+id/tab_layout"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="center"
+        app:tabTextColor="@color/colorAccent"/>
+
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_bar"></FrameLayout>
+        android:id="@+id/viewpager"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemBackground="?selectableItemBackgroundBorderless"
-        app:itemHorizontalTranslationEnabled="true"
-        app:itemIconTint="@drawable/nav_item_color_state"
-        app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/bottom_nav"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <ListView
-        android:id="@+id/list_song"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_below="@id/search_bar"
-        android:layout_above="@id/nav_bar"
-        android:layout_marginTop="40dp"></ListView>
-
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/roundcorner"
-        android:backgroundTint="#D3D3D3" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/total_songs"
-        android:layout_below="@id/search_bar"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"></TextView>
-
-</RelativeLayout>
+</LinearLayout>
