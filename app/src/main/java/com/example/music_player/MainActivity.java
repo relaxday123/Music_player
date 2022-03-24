@@ -2,6 +2,8 @@ package com.example.music_player;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
