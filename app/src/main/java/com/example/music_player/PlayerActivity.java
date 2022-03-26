@@ -1,5 +1,7 @@
 package com.example.music_player;
 
+import static com.example.music_player.MainActivity.musicFiles;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.Image;
@@ -12,6 +14,10 @@ import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -41,7 +47,7 @@ public class PlayerActivity extends AppCompatActivity {
         getIntentMethod();
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            public void onProgressChanged(SeekBar seekBar, int progess, boolean fromUser) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer.seekTo(progess * 1000);
                 }
@@ -117,12 +123,17 @@ public class PlayerActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextBtn);
         repeatBtn = findViewById(R.id.repeatBtn);
         seekBar = findViewById(R.id.seekBar);
+        getSupportActionBar().hide();
     }
 
-    private void metaData(Uri uri) {
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(uri.toString());
-        int durationTotal = Integer.parseInt(listSongs.get(position).getDuration());
-        duration_total.setText(formattedTime(durationTotal))
-    }
+//    private void metaData(Uri uri) {
+//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+//        retriever.setDataSource(uri.toString());
+//        int durationTotal = Integer.parseInt(listSongs.get(position).getDuration());
+//        duration_total.setText(formattedTime(durationTotal));
+//        byte[] art = retriever.getEmbeddedPicture();
+//        if (art != null) {
+//            Glide
+//        }
+//    }
 }
