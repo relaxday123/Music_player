@@ -1,6 +1,7 @@
 package com.example.music_player;
 
 import static com.example.music_player.MainActivity.musicFiles;
+import static com.example.music_player.MusicAdapter.mFiles;
 
 import android.os.Bundle;
 
@@ -15,7 +16,11 @@ import android.view.ViewGroup;
 public class OfflineFragment extends Fragment {
 
     RecyclerView recyclerView;
-    MusicAdapter musicAdapter;
+    static MusicAdapter musicAdapter;
+
+    public OfflineFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
