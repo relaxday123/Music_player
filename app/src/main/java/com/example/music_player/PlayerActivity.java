@@ -392,7 +392,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         if (listSongs != null) {
             playPauseBtn.setIconResource(R.drawable.ic_pause);
             uri = Uri.parse(listSongs.get(position).getPath());
-//            Log.e("kteam", uri.toString());
+            Log.e("kteam", uri.toString());
         }
         if (mediaPlayer != null) {
             mediaPlayer.stop();
