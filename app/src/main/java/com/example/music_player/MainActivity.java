@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -161,6 +162,32 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         MenuItem menuItem = menu.findItem(R.id.search_option);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
+
+
+        getMenuInflater().inflate(R.menu.more_option, menu);
+        MenuItem loginItem = menu.findItem(R.id.loginBtn);
+        MenuItem registerItem = menu.findItem(R.id.registerBtn);
+        MenuItem aboutItem = menu.findItem(R.id.aboutBtn);
+
+        loginItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        registerItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
