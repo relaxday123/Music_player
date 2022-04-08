@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="50dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please enter your id"
+                android:id="@+id/regId"
+                android:textAlignment="textStart"
+                android:layout_marginVertical="20dp">
+            </EditText>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/regPassword"
+                android:inputType="textPassword"
+                android:hint="Please enter your password"
+                android:textAlignment="textStart"
+                android:layout_marginVertical="20dp">
+            </EditText>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/regEmail"
+                android:hint="Please enter your email"
+                android:textAlignment="textStart"
+                android:inputType="textEmailAddress"
+                android:layout_marginVertical="20dp">
+            </EditText>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/regMobile"
+                android:maxLength="10"
+                android:hint="Please enter your mobile number"
+                android:textAlignment="textStart"
+                android:inputType="phone"
+                android:layout_marginVertical="20dp">
+            </EditText>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/regBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/roundcorner"
+            android:gravity="center"
+            android:paddingHorizontal="125dp"
+            android:text="Sign up" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? "
+                android:layout_marginBottom="50dp">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in"
+                android:layout_marginBottom="50dp"
+                android:clickable="true"
+                android:textSize="15dp"
+                android:textColor="@color/purple_200"
+                android:textStyle="bold">
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
