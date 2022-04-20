@@ -17,16 +17,14 @@
         android:name=".ApplicationClass"
         android:theme="@style/Theme.Music_player">
         <activity
+
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".PlayerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".LoadingScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
