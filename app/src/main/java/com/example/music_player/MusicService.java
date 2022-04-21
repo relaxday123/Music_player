@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
@@ -36,6 +37,10 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     int position = -1;
     ActionPlaying actionPlaying;
     MediaSessionCompat mediaSessionCompat;
+    public static final String MUSIC_LAST_PLAYED = "LAST_PLAYED";
+    public static final String MUSIC_FILE = "STORED_MUSIC";
+    public static final String SONG_NAME = "SONG_NAME";
+    public static final String SONG_ARTIST = "SONG_ARTIST";
 
     @Override
     public void onCreate() {
@@ -67,21 +72,15 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             switch (actionName) {
                 case "playPause":
                     Toast.makeText(this, "PlayPause", Toast.LENGTH_SHORT).show();
-                    if (actionPlaying != null) {
-                        actionPlaying.playPauseBtnClicked();
-                    }
+                    playPauseBtnClicked();
                     break;
                 case "next":
                     Toast.makeText(this, "Next", Toast.LENGTH_SHORT).show();
-                    if (actionPlaying != null) {
-                        actionPlaying.nextBtnClicked();
-                    }
+                    nextBtnClicked();
                     break;
                 case "previous":
                     Toast.makeText(this, "Previous", Toast.LENGTH_SHORT).show();
-                    if (actionPlaying != null) {
-                        actionPlaying.prevBtnClicked();
-                    }
+                    prevBtnClicked();
                     break;
             }
         }
@@ -139,6 +138,12 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     void createMediaPlayer(int positionInner) {
         position = positionInner;
         uri = Uri.parse(musicFiles.get(position).getPath());
+        SharedPreferences.Editor editor = getSharedPreferences(MUSIC_LAST_PLAYED, MODE_PRIVATE)
+                .edit();
+        editor.putString(MUSIC_FILE, uri.toString());
+        editor.putString(SONG_ARTIST, musicFiles.get(position).getArtist());
+        editor.putString(SONG_NAME, musicFiles.get(position).getTitle());
+        editor.apply();
         mediaPlayer = MediaPlayer.create(getBaseContext(), uri);
     }
 
@@ -214,5 +219,23 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         retriever.setDataSource(uri);
         byte[] art = retriever.getEmbeddedPicture();
         return art;
+    }
+
+    void nextBtnClicked() {
+        if (actionPlaying != null) {
+            actionPlaying.nextBtnClicked();
+        }
+    }
+
+    void playPauseBtnClicked() {
+        if (actionPlaying != null) {
+            actionPlaying.playPauseBtnClicked();
+        }
+    }
+
+    void prevBtnClicked() {
+        if (actionPlaying != null) {
+            actionPlaying.prevBtnClicked();
+        }
     }
 }
