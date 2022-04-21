@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
     private Context mContext;
     static ArrayList<MusicFiles> mFiles;
+    MusicService musicService;
 
     MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles) {
         this.mFiles = mFiles;
