@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class LoadingScreen extends AppCompatActivity {
 
-
+    private boolean isMinimized = false;
     LinearLayout L1,L2;
     TextView tv1,tv2;
     Animation Fade;
@@ -22,6 +22,8 @@ public class LoadingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
+        getSupportActionBar().hide();
+
 
         L1 = (LinearLayout)findViewById(R.id.l1);
 
@@ -43,6 +45,7 @@ public class LoadingScreen extends AppCompatActivity {
             public void run(){
                 try {
                     sleep(5000);
+                    finish();
                 }
                 catch (InterruptedException e){
                     e.printStackTrace();
@@ -52,5 +55,22 @@ public class LoadingScreen extends AppCompatActivity {
                 }
             }
         };thread.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isMinimized = true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (isMinimized) {
+            startActivity(new Intent(this, LoadingScreen.class));
+            isMinimized = false;
+            finish();
+        }
     }
 }

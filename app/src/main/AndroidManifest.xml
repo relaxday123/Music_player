@@ -17,7 +17,9 @@
         android:name=".ApplicationClass"
         android:theme="@style/Theme.Music_player">
         <activity
-
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -25,7 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".LoadingScreen"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
