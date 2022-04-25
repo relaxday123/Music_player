@@ -24,9 +24,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -97,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.titlebar_logo, null);
+        getSupportActionBar().setCustomView(view);
 //        getSupportActionBar().hide();
 //        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
 //        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
