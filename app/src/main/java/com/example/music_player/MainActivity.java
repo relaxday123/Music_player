@@ -34,6 +34,8 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         getMenuInflater().inflate(R.menu.more_option, menu);
         MenuItem loginItem = menu.findItem(R.id.loginBtn);
         MenuItem registerItem = menu.findItem(R.id.registerBtn);
+        MenuItem logoutItem = menu.findItem(R.id.logoutBtn);
         MenuItem aboutItem = menu.findItem(R.id.aboutBtn);
 
         loginItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -202,6 +205,22 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                return true;
+            }
+        });
+
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // No user is signed in
+                    Toast.makeText(MainActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });

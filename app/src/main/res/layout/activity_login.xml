@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Please enter your id"
-                android:id="@+id/id"
+                android:id="@+id/email"
                 android:textAlignment="textStart">
             </EditText>
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sign up"
                 android:layout_marginBottom="50dp"
-                android:clickable="true"
+                android:onClick="redregisBtn"
                 android:textSize="15dp"
                 android:textColor="@color/purple_200"
                 android:textStyle="bold">

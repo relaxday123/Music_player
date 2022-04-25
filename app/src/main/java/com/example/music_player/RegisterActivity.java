@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,8 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button regBtn;
     ProgressDialog loadingBar;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,12 @@ public class RegisterActivity extends AppCompatActivity {
         regEmail = findViewById(R.id.regEmail);
         regMobile = findViewById(R.id.regMobile);
         regBtn = findViewById(R.id.regBtn);
+        fAuth = FirebaseAuth.getInstance();
+
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
 
         loadingBar = new ProgressDialog(this);
 
@@ -58,10 +65,10 @@ public class RegisterActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                id = regId.getText().toString();
-                password = regPassword.getText().toString();
-                email = regEmail.getText().toString();
-                phone = regMobile.getText().toString();
+                id = regId.getText().toString().trim();
+                password = regPassword.getText().toString().trim();
+                email = regEmail.getText().toString().trim();
+                phone = regMobile.getText().toString().trim();
 
                 createNewAccount(id, password, email, phone);
             }
@@ -75,49 +82,30 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter your password !!!", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email !!!", Toast.LENGTH_SHORT).show();
+        }else if (password.length() < 6) {
+            Toast.makeText(this, "Password must be at least 6 character", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(phone)) {
             Toast.makeText(this, "Please enter your phone !!!", Toast.LENGTH_SHORT).show();
         } else {
             loadingBar.show();
 
-            final DatabaseReference mRef;
-            mRef = FirebaseDatabase.getInstance().getReference();
-            FirebaseDatabase.getInstance("https://vax-in-60807-default-rtdb.asia-southeast1.firebasedatabase.app");
-
-            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!(snapshot.child("Users").child(phone).exists())) {
-                        HashMap<String, Object> userdata = new HashMap<>();
-                        userdata.put("phone", phone);
-                        userdata.put("id", id);
-                        userdata.put("password", password);
-                        userdata.put("email", email);
-
-                        mRef.child("Users").setValue(userdata)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            loadingBar.dismiss();
-                                            Toast.makeText(RegisterActivity.this, "Registration successful!!!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            loadingBar.dismiss();
-                                            Toast.makeText(RegisterActivity.this, "Please try again!!!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        loadingBar.dismiss();
+                        Toast.makeText(RegisterActivity.this, "Register successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         loadingBar.dismiss();
-                        Toast.makeText(RegisterActivity.this, "User with this number already exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
         }
+    }
+
+    public void redlogBtn(View view) {
+        finish();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 }
