@@ -59,6 +59,9 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
         prevBtn = view.findViewById(R.id.skip_previous_button);
         card_bottom_player = view.findViewById(R.id.card_bottom_player);
 
+        songName.setSelected(true);
+        artist.setSelected(true);
+
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
