@@ -37,6 +37,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,6 +74,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
     private Handler handler = new Handler();
     private Thread playThread, prevThread, nextThread;
     MusicService musicService;
+    FrameLayout frag_bottom_player;
     RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
     public RotateAnimation spinning(RotateAnimation anim) {
@@ -146,8 +148,9 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
     }
@@ -435,6 +438,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         shuffleBtn = findViewById(R.id.shuffleBtn);
         seekBar = findViewById(R.id.seekBar);
         returnBtn = findViewById(R.id.returnBtn);
+        frag_bottom_player = findViewById(R.id.frag_bottom_player);
         getSupportActionBar().hide();
     }
 
