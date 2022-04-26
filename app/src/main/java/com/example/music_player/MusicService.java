@@ -7,6 +7,7 @@ import static com.example.music_player.ApplicationClass.CHANNEL_ID_2;
 import static com.example.music_player.PlayerActivity.listSongs;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -209,6 +210,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
         startForeground(2, notification);
+
 //        NotificationManager notificationManager =
 //                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 //        notificationManager.notify(0, notification);

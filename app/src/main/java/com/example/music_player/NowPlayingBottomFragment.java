@@ -7,6 +7,7 @@ import static com.example.music_player.MainActivity.PATH_TO_FRAG;
 import static com.example.music_player.MainActivity.SHOW_MINI_PLAYER;
 import static com.example.music_player.MainActivity.SONG_NAME_TO_FRAG;
 
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -168,13 +169,19 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
             }
         });
 
-        card_bottom_player.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        card_bottom_player.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                Intent intent = new Intent(getContext(), PlayerActivity.class);
 //                startActivity(intent);
-            }
-        });
+//            }
+//        });
+
+
+        Intent intent = new Intent(getContext(), MusicService.class);
+        if (getContext() != null) {
+            getContext().bindService(intent, this, Context.BIND_AUTO_CREATE);
+        }
 
         return view;
     }

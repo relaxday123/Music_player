@@ -20,6 +20,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".PlayerActivity"
+            android:exported="true" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
