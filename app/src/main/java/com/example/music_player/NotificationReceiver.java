@@ -1,5 +1,6 @@
 package com.example.music_player;
 
+import static com.example.music_player.ApplicationClass.ACTION_EXIT;
 import static com.example.music_player.ApplicationClass.ACTION_NEXT;
 import static com.example.music_player.ApplicationClass.ACTION_PLAY;
 import static com.example.music_player.ApplicationClass.ACTION_PREVIOUS;
@@ -26,6 +27,13 @@ public class NotificationReceiver extends BroadcastReceiver {
                 case ACTION_PREVIOUS:
                     serviceIntent.putExtra("ActionName", "previous");
                     context.startService(serviceIntent);
+                    break;
+                case ACTION_EXIT:
+//                    serviceIntent.putExtra("ActionName", "exit");
+//                    context.startService(serviceIntent);
+                    PlayerActivity.musicService.stopForeground(true);
+                    PlayerActivity.musicService.stop();
+//                    PlayerActivity.musicService = null;
                     break;
             }
         }
