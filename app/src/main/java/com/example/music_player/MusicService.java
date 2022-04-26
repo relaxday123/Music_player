@@ -1,5 +1,6 @@
 package com.example.music_player;
 
+import static com.example.music_player.ApplicationClass.ACTION_EXIT;
 import static com.example.music_player.ApplicationClass.ACTION_NEXT;
 import static com.example.music_player.ApplicationClass.ACTION_PLAY;
 import static com.example.music_player.ApplicationClass.ACTION_PREVIOUS;
@@ -187,6 +188,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         PendingIntent nextPending = PendingIntent.getBroadcast(this,  0, nextIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent exitIntent = new Intent(this, NotificationReceiver.class)
+                .setAction(ACTION_EXIT);
+        PendingIntent exitPending = PendingIntent.getBroadcast(this,  0, exitIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         byte[] picture = null;
         picture = getAlbumArt(musicFiles.get(position).getPath());
         Bitmap thumb = null;
@@ -203,6 +209,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 .addAction(R.drawable.ic_prev, "Previous", prevPending)
                 .addAction(playPauseBtn, "Pause", pausePending)
                 .addAction(R.drawable.ic_skip_next, "Next", nextPending)
+                .addAction(R.drawable.ic_exit, "Exit", exitPending)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOnlyAlertOnce(true)
