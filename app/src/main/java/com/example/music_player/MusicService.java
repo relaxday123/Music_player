@@ -151,6 +151,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     void OnCompleted() {
         mediaPlayer.setOnCompletionListener(this);
+        PlayerActivity.musicService.showNotification(R.drawable.ic_pause);
+        PlayerActivity.playPauseBtn.setIconResource(R.drawable.ic_pause);
     }
 
     @Override

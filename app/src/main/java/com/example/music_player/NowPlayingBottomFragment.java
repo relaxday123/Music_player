@@ -16,9 +16,12 @@ import android.content.SharedPreferences;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +65,7 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
 
         songName.setSelected(true);
         artist.setSelected(true);
+
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,14 +173,15 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
             }
         });
 
-//        card_bottom_player.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), PlayerActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
+        card_bottom_player.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), PlayerActivity.class);
+                intent.putExtra("position", PlayerActivity.position);
+                intent.putExtra("class", "NowPlaying");
+                ContextCompat.startActivity(requireContext(), intent, null);
+            }
+        });
 
         Intent intent = new Intent(getContext(), MusicService.class);
         if (getContext() != null) {
@@ -229,10 +234,12 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         MusicService.MyBinder myBinder = (MusicService.MyBinder) iBinder;
         musicService = myBinder.getService();
+        getView().setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
+        getView().setVisibility(View.INVISIBLE);
     }
 }
