@@ -14,6 +14,7 @@ public class ApplicationClass extends Application {
     public static final String ACTION_NEXT = "actionnext";
     public static final String ACTION_PLAY = "actionplay";
     public static final String ACTION_EXIT = "actionexit";
+    public static final String ACTION_RETURN = "actionreturn";
 
     @Override
     public void onCreate() {
@@ -25,13 +26,13 @@ public class ApplicationClass extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 =
                     new NotificationChannel(CHANNEL_ID_1,
-                            "Channel(1)", NotificationManager.IMPORTANCE_HIGH);
+                            "Channel(1)", NotificationManager.IMPORTANCE_DEFAULT);
 
             channel1.setDescription("Channel 1 Desc...");
 
             NotificationChannel channel2 =
                     new NotificationChannel(CHANNEL_ID_2,
-                            "Channel(2)", NotificationManager.IMPORTANCE_HIGH);
+                            "Channel(2)", NotificationManager.IMPORTANCE_DEFAULT);
 
             channel2.setDescription("Channel 2 Desc...");
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -78,6 +79,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                             Toast.makeText(mContext, "Delete Clicked!!", Toast.LENGTH_SHORT).show();
                             deleteFile(holder.getAdapterPosition(), view);
                             break;
+                        case R.id.addToPlaylist:
+                            Toast.makeText(mContext, "Add Clicked!!", Toast.LENGTH_SHORT).show();
+                            addToPlaylist(holder.getAdapterPosition(), view);
+                            break;
                     }
                     return true;
                 });
@@ -86,6 +91,26 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     private void deleteFile(int position, View v) {
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                Long.parseLong(mFiles.get(position).getId())); // content://
+        File file = new File(mFiles.get(position).getPath());
+        Log.d("Path", mFiles.get(position).getPath());
+        boolean deleted = file.delete(); // delete your file
+        if (deleted) {
+            mContext.getContentResolver().delete(contentUri, null, null);
+            mFiles.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mFiles.size());
+            Snackbar.make(v, "File Deleted : ", Snackbar.LENGTH_LONG)
+                    .show();
+        } else {
+            // may be file in sd card
+            Snackbar.make(v, "Can't be deleted : ", Snackbar.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    private void addToPlaylist(int position, View v) {
         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 Long.parseLong(mFiles.get(position).getId())); // content://
         File file = new File(mFiles.get(position).getPath());

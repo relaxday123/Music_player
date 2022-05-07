@@ -19,6 +19,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.IBinder;
 import android.provider.DocumentsContract;
@@ -31,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.music_player.databinding.FragmentNowPlayingBottomBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NowPlayingBottomFragment extends Fragment implements ServiceConnection {
@@ -45,6 +47,7 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
     public static final String MUSIC_FILE = "STORED_MUSIC";
     public static final String SONG_NAME = "SONG_NAME";
     public static final String SONG_ARTIST = "SONG_ARTIST";
+    FragmentNowPlayingBottomBinding binding;
 
     public NowPlayingBottomFragment() {
         // Required empty public constructor
@@ -66,6 +69,10 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
         songName.setSelected(true);
         artist.setSelected(true);
 
+//        binding.getRoot().setVisibility(View.INVISIBLE);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.hide(this);
+        ft.commit();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +202,10 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
     public void onResume() {
         super.onResume();
 
+//        if (PlayerActivity.musicService != null) {
+//            getView().setVisibility(View.VISIBLE);
+//        }
+
         if (SHOW_MINI_PLAYER) {
             if (PATH_TO_FRAG != null) {
                 byte[] art = getAlbumArt(PATH_TO_FRAG);
@@ -221,6 +232,15 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
         if (getContext() != null) {
             getContext().unbindService(this);
         }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.show(this);
+        ft.commit();
+
+//        if (musicService.isPlaying()) {
+//            playPauseBtn.setImageResource(R.drawable.ic_pause);
+//        } else {
+//            playPauseBtn.setImageResource(R.drawable.ic_play);
+//        }
     }
 
     private byte[] getAlbumArt(String uri) {
@@ -234,12 +254,13 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         MusicService.MyBinder myBinder = (MusicService.MyBinder) iBinder;
         musicService = myBinder.getService();
-        getView().setVisibility(View.VISIBLE);
+//        musicService.OnCompleted();
+//        getView().setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
-        getView().setVisibility(View.INVISIBLE);
+//        getView().setVisibility(View.INVISIBLE);
     }
 }

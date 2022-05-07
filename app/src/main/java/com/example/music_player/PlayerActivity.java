@@ -423,6 +423,11 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 song_name.setText(listSongs.get(position).getTitle());
                 song_artist.setText(listSongs.get(position).getArtist());
                 seekBar.setMax(musicService.getDuration() / 1000);
+                if (musicService.isPlaying()) {
+                    playPauseBtn.setIconResource(R.drawable.ic_pause);
+                } else {
+                    playPauseBtn.setIconResource(R.drawable.ic_play);
+                }
                 PlayerActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -529,7 +534,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        MusicService.MyBinder myBinder = (MusicService.MyBinder)  iBinder;
+        MusicService.MyBinder myBinder = (MusicService.MyBinder) iBinder;
         musicService = myBinder.getService();
         musicService.setCallBack(this);
         seekBar.setMax(musicService.getDuration() / 1000);
