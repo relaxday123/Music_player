@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.music_player.Fragment.OnlineFragment;
+
 public class ViewPagerFragmentAdapter extends FragmentStateAdapter {
 
     private String[] titles = new String[]{"Offline", "Online"};
