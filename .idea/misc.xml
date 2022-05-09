@@ -43,17 +43,24 @@
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/mipmap-anydpi-v26/icon.xml" value="0.1" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/mipmap-anydpi-v26/icon_round.xml" value="0.1" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/drawable/backgnd_banner.xml" value="0.1195" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/drawable/ic_favorite_border.xml" value="0.1" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_loading_screen.xml" value="0.33" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_login.xml" value="0.14412360688956433" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_player.xml" value="0.12462006079027356" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/activity_song_list.xml" value="0.1" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/album_line.xml" value="0.25" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/banner.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/banner_line.xml" value="0.1634963768115942" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/f_album.xml" value="0.1" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/f_playlist.xml" value="0.25" />
-        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/fragment_online.xml" value="0.1" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/f_randomsong.xml" value="0.1" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/fragment_online.xml" value="0.25" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/music_items.xml" value="0.14412360688956433" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/playlist_line.xml" value="0.25" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/randomsong_line.xml" value="0.33" />
+        <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/songlist_line.xml" value="0.10344827586206896" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/theme.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/laxus/Desktop/MediaPlayer/Music_player/app/src/main/res/layout/titlebar_logo.xml" value="0.14412360688956433" />
       </map>

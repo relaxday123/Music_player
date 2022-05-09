@@ -1,6 +1,7 @@
 package com.example.music_player.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.music_player.Model.Theme;
 import com.example.music_player.R;
+import com.example.music_player.SongListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +48,15 @@ public class BannerAdapter extends PagerAdapter {
 
         Picasso.with(context).load(arrayListbanner.get(position).getThemePic()).into(imgbgBanner);
         container.addView(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SongListActivity.class);
+                intent.putExtra("Banner",arrayListbanner.get(position));
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 

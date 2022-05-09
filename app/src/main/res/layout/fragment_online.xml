@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     tools:context=".Fragment.OnlineFragment"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="2000dp"
         android:layout_below="@+id/tab_layout"
         android:layout_alignBottom="@+id/view_pager"
         android:layout_marginTop="0dp"
@@ -31,5 +33,25 @@
             android:layout_marginTop="5dp"
             android:layout_height="200dp">
         </fragment>
+
+        <fragment
+            android:id="@+id/fragmentalbum"
+            android:name="com.example.music_player.Fragment.F_Album"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="300dp">
+        </fragment>
+
+        <fragment
+            android:id="@+id/fragmentrandomsong"
+            android:name="com.example.music_player.Fragment.F_RandomSong"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content">
+        </fragment>
+
+
+
+
     </LinearLayout>
-</FrameLayout>
+</ScrollView>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgrdSong"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tvrdSongName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/imgrdSong"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="TEST"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:text="TEST"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tvrdSongArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvrdSongName"
+        android:layout_toRightOf="@+id/imgrdSong"
+        android:textSize="13dp"/>
+    <ImageView
+        android:id="@+id/imgLove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_favorite_border"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

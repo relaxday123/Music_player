@@ -6,11 +6,11 @@
         android:scaleType="fitXY"
         android:id="@+id/imgbgBanner"
         android:layout_width="match_parent"
-        android:layout_height="160dp"/>
+        android:layout_height="165dp"/>
     <View
         android:background="@drawable/backgnd_banner"
         android:layout_width="match_parent"
-        android:layout_height="160dp"/>
+        android:layout_height="165dp"/>
     <RelativeLayout
         android:id="@+id/relative1"
         android:layout_width="match_parent"

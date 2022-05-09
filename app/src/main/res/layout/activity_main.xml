@@ -24,34 +24,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout"
-        android:layout_alignBottom="@+id/tab_layout">
+        >
     </androidx.viewpager.widget.ViewPager>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_below="@+id/tab_layout"
-        android:layout_alignBottom="@+id/view_pager"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="-370dp"
-        android:orientation="vertical">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="500dp"-->
+<!--        android:layout_below="@+id/tab_layout"-->
+<!--        android:layout_alignBottom="@+id/view_pager"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_marginBottom="-370dp"-->
+<!--        android:orientation="vertical">-->
 
-        <fragment
-            android:id="@+id/fragmentbanner"
-            android:name="com.example.music_player.Fragment.Banner"
-            android:layout_width="match_parent"
-            android:layout_height="160dp">
+<!--        <fragment-->
+<!--            android:id="@+id/fragmentbanner"-->
+<!--            android:name="com.example.music_player.Fragment.Banner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="160dp">-->
 
-        </fragment>
+<!--        </fragment>-->
 
-        <fragment
-            android:id="@+id/fragmentplaylist"
-            android:name="com.example.music_player.Fragment.F_Playlist"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="200dp">
-        </fragment>
-    </LinearLayout>
+<!--        <fragment-->
+<!--            android:id="@+id/fragmentplaylist"-->
+<!--            android:name="com.example.music_player.Fragment.F_Playlist"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_height="200dp">-->
+<!--        </fragment>-->
+<!--    </LinearLayout>-->
 
     <FrameLayout
         android:layout_width="match_parent"

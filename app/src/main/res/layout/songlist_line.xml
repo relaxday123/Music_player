@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvindexsong"
+            android:text="1"
+            android:textSize="20dp"
+            android:layout_margin="15dp"/>
+        <TextView
+            android:id="@+id/tvslsongName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toRightOf="@+id/tvindexsong"
+            android:text="test"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvslsongArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvslsongName"
+            android:layout_toRightOf="@+id/tvindexsong"
+            android:text="TEST"
+            android:textSize="13dp" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_favorite_border"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imgslLike"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

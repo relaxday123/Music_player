@@ -2,7 +2,6 @@ package com.example.music_player;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -11,10 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +25,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.music_player.Fragment.OnlineFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -94,11 +88,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getSupportActionBar().setDisplayShowCustomEnabled(true);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.titlebar_logo, null);
-        getSupportActionBar().setCustomView(view);
+//        getSupportActionBar().setCustomView(view);
 //        getSupportActionBar().hide();
 //        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
 //        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
@@ -170,57 +164,57 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_option);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-
-
-        getMenuInflater().inflate(R.menu.more_option, menu);
-        MenuItem loginItem = menu.findItem(R.id.loginBtn);
-        MenuItem registerItem = menu.findItem(R.id.registerBtn);
-        MenuItem logoutItem = menu.findItem(R.id.logoutBtn);
-        MenuItem aboutItem = menu.findItem(R.id.aboutBtn);
-
-        loginItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-        registerItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    // No user is signed in
-                    Toast.makeText(MainActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-        });
-
-
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.search, menu);
+//        MenuItem menuItem = menu.findItem(R.id.search_option);
+//        SearchView searchView = (SearchView) menuItem.getActionView();
+//        searchView.setOnQueryTextListener(this);
+//
+//
+//        getMenuInflater().inflate(R.menu.more_option, menu);
+//        MenuItem loginItem = menu.findItem(R.id.loginBtn);
+//        MenuItem registerItem = menu.findItem(R.id.registerBtn);
+//        MenuItem logoutItem = menu.findItem(R.id.logoutBtn);
+//        MenuItem aboutItem = menu.findItem(R.id.aboutBtn);
+//
+//        loginItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+//        registerItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+//        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                if (user != null) {
+//                    // User is signed in
+//                    FirebaseAuth.getInstance().signOut();
+//                    Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    // No user is signed in
+//                    Toast.makeText(MainActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
+//                }
+//                return true;
+//            }
+//        });
+//
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
