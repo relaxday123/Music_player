@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,12 +28,25 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder> {
 
     private Context mContext;
     static ArrayList<MusicFiles> mFiles;
-    MusicService musicService;
+    Boolean playlistDetails, selectionActivity = false;
+
+    MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles, Boolean playlistDetails) {
+        this.mFiles = mFiles;
+        this.mContext = mContext;
+        this.playlistDetails = playlistDetails;
+    }
+
+    MusicAdapter(Context mContext, Boolean selectionActivity, ArrayList<MusicFiles> mFiles) {
+        this.mFiles = mFiles;
+        this.mContext = mContext;
+        this.selectionActivity = selectionActivity;
+    }
 
     MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles) {
         this.mFiles = mFiles;
@@ -58,15 +74,40 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                     .load(R.drawable.images)
                     .into(holder.album_art);
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, PlayerActivity.class);
-                intent.putExtra("position" ,holder.getAdapterPosition());
-                intent.putExtra("class","CreateNewSong");
-                mContext.startActivity(intent);
-            }
-        });
+
+        try {
+//            if (playlistDetails) {
+//                holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(mContext, PlayerActivity.class);
+//                        intent.putExtra("position", holder.getAdapterPosition());
+//                        intent.putExtra("class", "PlaylistDetailsAdapter");
+//                        mContext.startActivity(intent);
+//                    }
+//                });
+//            } else
+//                if (selectionActivity) {
+//                if (addSong(mFiles.get(position))) {
+//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+//                } else {
+//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+//                }
+//            } else {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, PlayerActivity.class);
+                        intent.putExtra("position", holder.getAdapterPosition());
+                        intent.putExtra("class", "CreateNewSong");
+                        mContext.startActivity(intent);
+                    }
+                });
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.menuMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -157,6 +198,22 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     void updateList(ArrayList<MusicFiles> musicFilesArrayList) {
         mFiles = new ArrayList<>();
         mFiles.addAll(musicFilesArrayList);
+        notifyDataSetChanged();
+    }
+
+    private boolean addSong(MusicFiles musicFiles) {
+        for (MusicFiles i :MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist()) {
+            if (musicFiles.getId() == i.getId()) {
+                MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().remove(i);
+                return false;
+            }
+        }
+        MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().add(musicFiles);
+        return true;
+    }
+
+    public void refreshPlaylist() {
+        mFiles = MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist();
         notifyDataSetChanged();
     }
 }

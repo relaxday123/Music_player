@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter your password !!!", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email !!!", Toast.LENGTH_SHORT).show();
-        }else if (password.length() < 6) {
+        } else if (password.length() < 6) {
             Toast.makeText(this, "Password must be at least 6 character", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(phone)) {
             Toast.makeText(this, "Please enter your phone !!!", Toast.LENGTH_SHORT).show();

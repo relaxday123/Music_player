@@ -14,6 +14,8 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.PagerAdapter;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +42,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     static ArrayList<MusicFiles> musicFiles;
@@ -152,7 +156,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
                 // take log.e for check
                 Log.e("Path : " + path, "Album : " + album);
-                tempAudioList.add(musicFiles);
+                if (tempAudioList.isEmpty())
+                    tempAudioList.add(musicFiles);
+                else if (!musicFiles.getTitle().equals(tempAudioList.get(tempAudioList.size()-1).getTitle()))
+                    tempAudioList.add(musicFiles);
             }
             cursor.close();
         }
@@ -304,5 +311,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (PlayerActivity.musicService != null) {
+            PlayerActivity.musicService.stopForeground(true);
+            PlayerActivity.musicService.mediaPlayer.release();
+            PlayerActivity.musicService = null;
+        }
+        System.exit(1);
     }
 }
