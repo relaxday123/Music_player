@@ -38,13 +38,14 @@
         android:layout_below="@+id/tvrdSongName"
         android:layout_toRightOf="@+id/imgrdSong"
         android:textSize="13dp"/>
+
     <ImageView
         android:id="@+id/imgLove"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/ic_favorite_border"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_favorite_border" />
 
 </RelativeLayout>

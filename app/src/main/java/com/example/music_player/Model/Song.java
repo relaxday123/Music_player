@@ -1,17 +1,13 @@
 package com.example.music_player.Model;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-
-
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class Song implements Parcelable {
+
+public class Song implements Serializable {
 
     @SerializedName("IdSong")
     @Expose
@@ -42,26 +38,26 @@ public class Song implements Parcelable {
     }
 
 
-    protected Song(Parcel in) {
-        idSong = in.readInt();
-        songName = in.readString();
-        songPic = in.readString();
-        artist = in.readString();
-        songURL = in.readString();
-        likes = in.readString();
-    }
+//    protected Song(Parcel in) {
+//        idSong = in.readInt();
+//        songName = in.readString();
+//        songPic = in.readString();
+//        artist = in.readString();
+//        songURL = in.readString();
+//        likes = in.readString();
+//    }
 
-    public static final Creator<Song> CREATOR = new Creator<Song>() {
-        @Override
-        public Song createFromParcel(Parcel in) {
-            return new Song(in);
-        }
-
-        @Override
-        public Song[] newArray(int size) {
-            return new Song[size];
-        }
-    };
+//    public static final Creator<Song> CREATOR = new Creator<Song>() {
+//        @Override
+//        public Song createFromParcel(Parcel in) {
+//            return new Song(in);
+//        }
+//
+//        @Override
+//        public Song[] newArray(int size) {
+//            return new Song[size];
+//        }
+//    };
 
 
     public int getIdSong() {
@@ -109,19 +105,19 @@ public class Song implements Parcelable {
     this.likes = likes;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(idSong);
-        parcel.writeString(songName);
-        parcel.writeString(songPic);
-        parcel.writeString(artist);
-        parcel.writeString(songURL);
-        parcel.writeString(likes);
-
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeInt(idSong);
+//        parcel.writeString(songName);
+//        parcel.writeString(songPic);
+//        parcel.writeString(artist);
+//        parcel.writeString(songURL);
+//        parcel.writeString(likes);
+//
+//    }
 }

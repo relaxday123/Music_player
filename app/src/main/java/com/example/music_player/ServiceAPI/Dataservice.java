@@ -38,4 +38,7 @@ public interface Dataservice {
     @POST("ListSong.php")
     Call<List<Song>> GetListSongFromAlbum(@Field("IdAlbum") String IdAlbum);
 
+    @FormUrlEncoded
+    @POST("Likes.php")
+    Call<String> UpdateLikes(@Field("Likes") String Likes, @Field("IdSong") String IdSong );
 }
