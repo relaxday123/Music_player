@@ -1,6 +1,7 @@
 package com.example.music_player.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.music_player.Model.Album;
 import com.example.music_player.R;
+import com.example.music_player.SongListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -56,7 +58,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             imgAlbum = itemView.findViewById(R.id.imgAlbum);
             albumName = itemView.findViewById(R.id.tvAlbum);
             albumArtist = itemView.findViewById(R.id.tvAlbumArtist);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, SongListActivity.class);
+                    intent.putExtra("itemAlbum", albums.get(getPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

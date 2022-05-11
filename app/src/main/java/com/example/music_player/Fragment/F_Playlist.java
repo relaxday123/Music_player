@@ -1,9 +1,11 @@
 package com.example.music_player.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.music_player.Model.Playlist;
 import com.example.music_player.R;
 import com.example.music_player.ServiceAPI.APIService;
 import com.example.music_player.ServiceAPI.Dataservice;
+import com.example.music_player.SongListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +50,16 @@ public class F_Playlist extends Fragment {
                 ArrayList<Playlist> playlists = (ArrayList<Playlist>) response.body();
                 playlistAdapter = new PlaylistAdapter(getActivity(), android.R.layout.simple_list_item_1,playlists);
                 lvplaylist.setAdapter(playlistAdapter);
-                }
+                lvplaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                        Intent intent = new Intent(getActivity(), SongListActivity.class);
+                        intent.putExtra("itemPlaylist", playlists.get(position));
+                        startActivity(intent);
+                    }
+                });
+            }
+
             @Override
             public void onFailure(Call<List<Playlist>> call, Throwable t) {
             }

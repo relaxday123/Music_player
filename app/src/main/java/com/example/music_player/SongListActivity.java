@@ -3,6 +3,7 @@ package com.example.music_player;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.music_player.Adapter.SongListAdapter;
+import com.example.music_player.Model.Album;
+import com.example.music_player.Model.Playlist;
 import com.example.music_player.Model.Song;
 import com.example.music_player.Model.Theme;
 import com.example.music_player.ServiceAPI.APIService;
@@ -38,6 +41,8 @@ public class SongListActivity extends AppCompatActivity {
     ArrayList<Song> songs;
     FloatingActionButton floatingActionButton;
     Theme banner;
+    Playlist playlist;
+    Album album;
     SongListAdapter songListAdapter;
 
     @Override
@@ -47,10 +52,53 @@ public class SongListActivity extends AppCompatActivity {
         DataIntent();
         GetData();
         init();
-        if (banner != null && !banner.getIdSong().equals("")) {
+        if (banner != null && !banner.getThemeName().equals("")) {
             setVal(banner.getThemePic(),banner.getThemeName());
             GetDataBanner(banner.getIdTheme());
         }
+        if (playlist != null && !playlist.getPlaylistName().equals("")) {
+            setVal(playlist.getPlaylistPic(),playlist.getPlaylistName());
+            GetDataPlaylist(playlist.getIdPlaylist());
+        }
+        if (album != null && !album.getAlbumName().equals("")) {
+            setVal(album.getAlbumPic(),album.getAlbumName());
+            GetDataAlbum(album.getIdAlbum());
+        }
+    }
+
+    private void GetDataAlbum(String IdAlbum) {
+        Dataservice dataservice = APIService.getService();
+        Call<List<Song>> callback = dataservice.GetListSongFromAlbum(IdAlbum);
+        callback.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songs = (ArrayList<Song>) response.body();
+                Log.d("BBB",songs.get(0).getSongName());
+                songListAdapter = new SongListAdapter(SongListActivity.this,songs);
+                songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
+                songlist.setAdapter(songListAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+            }
+        });
+    }
+
+    private void GetDataPlaylist(String IdPlaylist) {
+        Dataservice dataservice = APIService.getService();
+        Call<List<Song>> callback = dataservice.GetListSongFromPlaylist(IdPlaylist);
+        callback.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songs = (ArrayList<Song>) response.body();
+                songListAdapter = new SongListAdapter(SongListActivity.this,songs);
+                songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
+                songlist.setAdapter(songListAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+            }
+        });
     }
 
     private void setVal(String pic,String title) {
@@ -60,21 +108,18 @@ public class SongListActivity extends AppCompatActivity {
 
     private void GetDataBanner(String IdTheme) {
         Dataservice dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetListSong(IdTheme);
+        Call<List<Song>> callback = dataservice.GetListSongFromTheme(IdTheme);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songs = (ArrayList<Song>) response.body();
-
+                Log.d("ooooo",songs.get(0).getSongName());
                 songListAdapter = new SongListAdapter(SongListActivity.this,songs);
                 songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 songlist.setAdapter(songListAdapter);
-
             }
-
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-
             }
         });
     }
@@ -108,6 +153,12 @@ public class SongListActivity extends AppCompatActivity {
         if (intent != null){
             if (intent.hasExtra("Banner")){
                 banner = (Theme) intent.getSerializableExtra("Banner");
+            }
+            if (intent.hasExtra("itemPlaylist")){
+                playlist = (Playlist) intent.getSerializableExtra("itemPlaylist");
+            }
+            if (intent.hasExtra("itemAlbum")){
+                album = (Album) intent.getSerializableExtra("itemAlbum");
             }
         }
     }

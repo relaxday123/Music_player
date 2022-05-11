@@ -52,8 +52,8 @@ public class SongListAdapter extends  RecyclerView.Adapter<SongListAdapter.ViewH
         public  ViewHolder (View view) {
             super(view);
             tvindex = view.findViewById(R.id.tvindexsong);
-            tvslSongName = view.findViewById(R.id.tvslsongArtist);
-            tvslSongArtist = view.findViewById(R.id.tvslsongName);
+            tvslSongName = view.findViewById(R.id.tvslsongName);
+            tvslSongArtist = view.findViewById(R.id.tvslsongArtist);
             imgLike = view.findViewById(R.id.imgslLike);
 
         }

@@ -14,7 +14,7 @@
             android:id="@+id/tvindexsong"
             android:text="1"
             android:textSize="20dp"
-            android:layout_margin="15dp"/>
+            android:layout_margin="12dp"/>
         <TextView
             android:id="@+id/tvslsongName"
             android:layout_width="wrap_content"

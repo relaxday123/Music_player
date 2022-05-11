@@ -51,6 +51,7 @@ public class F_Album extends Fragment {
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 recyclerViewalbum.setLayoutManager(linearLayoutManager);
                 recyclerViewalbum.setAdapter(albumAdapter);
+
             }
 
             @Override
