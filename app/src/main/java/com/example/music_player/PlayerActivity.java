@@ -165,36 +165,37 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 finish();
             }
         });
-        timerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("timer", "min15 = " + min15);
-                if (!min15 && !min30 && !min60)
-                    showBottomSheetDialog();
-                else {
-                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getApplicationContext());
-                    builder.setTitle("Stop timer")
-                            .setMessage("Do you want to stop timer?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    min15 = false;
-                                    min30 = false;
-                                    min60 = false;
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                    AlertDialog customDialog = builder.create();
-                    customDialog.show();
-                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
-                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
-                }
-            }
-        });
+//        timerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("timer", "min15 = " + min15);
+//                if (!min15 && !min30 && !min60)
+//                    showBottomSheetDialog();
+//                else {
+//                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(PlayerActivity.this);
+//                    builder.setTitle("Stop timer")
+//                            .setMessage("Do you want to stop timer?")
+//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    min15 = false;
+//                                    min30 = false;
+//                                    min60 = false;
+//                                    timerBtn.setImageResource(R.drawable.ic_timer);
+//                                }
+//                            })
+//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                }
+//                            });
+//                    AlertDialog customDialog = builder.create();
+//                    customDialog.show();
+//                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+//                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+//                }
+//            }
+//        });
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,25 +219,38 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 dialog.dismiss();
                 timerBtn.setImageResource(R.drawable.ic_timer_on);
                 min15 = true;
-                Log.d("timer", "min15 = " + min15);
+
                     Thread newThread = new Thread(() -> {
                         try {
                             Thread.sleep(5000);
                             if (min15) {
                                 if (PlayerActivity.musicService != null) {
-                                    PlayerActivity.musicService.stopForeground(true);
-                                    PlayerActivity.musicService.mediaPlayer.release();
-                                    PlayerActivity.musicService = null;
+//                                    PlayerActivity.musicService.stopForeground(true);
+//                                    PlayerActivity.musicService.mediaPlayer.release();
+//                                    PlayerActivity.musicService = null;
+                                    PlayerActivity.musicService.pause();
+//                                    playPauseBtn.setIconResource(R.drawable.ic_play);
+//                                    playPauseBtnClicked();
                                 }
 //                                System.exit(1);
-//                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                finish();
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     });
                 newThread.start();
+
+                PlayerActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+    //                        handler.postDelayed(this, 5000);
+                            if (min15) {
+                                if (PlayerActivity.musicService != null) {
+                                    playPauseBtn.setIconResource(R.drawable.ic_play);
+                                }
+                            }
+                    }
+                });
             }
         });
         dialog.findViewById(R.id.min_30).setOnClickListener(new View.OnClickListener() {
@@ -249,13 +263,14 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 Thread newThread = new Thread(() -> {
                     try {
                         Thread.sleep(30 * 60000);
-                        if (min15) {
+                        if (min30) {
                             if (PlayerActivity.musicService != null) {
-                                PlayerActivity.musicService.stopForeground(true);
-                                PlayerActivity.musicService.mediaPlayer.release();
-                                PlayerActivity.musicService = null;
+//                                PlayerActivity.musicService.stopForeground(true);
+//                                PlayerActivity.musicService.mediaPlayer.release();
+//                                PlayerActivity.musicService = null;
+                                PlayerActivity.musicService.pause();
                             }
-                            System.exit(1);
+//                            System.exit(1);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -275,18 +290,18 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 Thread newThread = new Thread(() -> {
                     try {
                         Thread.sleep(60 * 60000);
-                        if (min15) {
+                        if (min60) {
                             if (PlayerActivity.musicService != null) {
-                                PlayerActivity.musicService.stopForeground(true);
-                                PlayerActivity.musicService.mediaPlayer.release();
-                                PlayerActivity.musicService = null;
+//                                PlayerActivity.musicService.stopForeground(true);
+//                                PlayerActivity.musicService.mediaPlayer.release();
+//                                PlayerActivity.musicService = null;
+                                PlayerActivity.musicService.pause();
                             }
-                            System.exit(1);
+//                            System.exit(1);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 });
                 newThread.start();
             }
@@ -302,7 +317,31 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 timerBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showBottomSheetDialog();
+                        if (!min15 && !min30 && !min60)
+                            showBottomSheetDialog();
+                        else {
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(PlayerActivity.this);
+                            builder.setTitle("Stop timer")
+                                    .setMessage("Do you want to stop timer?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            min15 = false;
+                                            min30 = false;
+                                            min60 = false;
+                                            timerBtn.setImageResource(R.drawable.ic_timer);
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    });
+                            AlertDialog customDialog = builder.create();
+                            customDialog.show();
+                            customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+                            customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+                        }
                     }
                 });
             }
