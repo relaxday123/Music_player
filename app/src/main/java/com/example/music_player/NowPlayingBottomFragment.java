@@ -1,13 +1,11 @@
 package com.example.music_player;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.content.Intent.getIntent;
 import static com.example.music_player.MainActivity.ARTIST_TO_FRAG;
 import static com.example.music_player.MainActivity.PATH_TO_FRAG;
 import static com.example.music_player.MainActivity.SHOW_MINI_PLAYER;
 import static com.example.music_player.MainActivity.SONG_NAME_TO_FRAG;
 
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +13,15 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -210,13 +206,13 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (getContext() != null) {
-            getContext().unbindService(this);
-        }
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        if (getContext() != null) {
+//            getContext().unbindService(this);
+//        }
+//    }
 
     private byte[] getAlbumArt(String uri) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();

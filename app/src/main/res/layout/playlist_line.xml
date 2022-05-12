@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgbgPlaylist"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp"
+        android:scaleType="fitXY"></ImageView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/backgnd_banner" />
+    <ImageView
+        android:id="@+id/imgPlaylist"
+        android:layout_alignBottom="@+id/imgbgPlaylist"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="6dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY">
+    </ImageView>
+    <TextView
+        android:textSize="20sp"
+        android:text="mmmmm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPlaylist"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginLeft="13dp"
+        android:layout_toRightOf="@+id/imgPlaylist"
+        android:layout_alignBottom="@+id/imgPlaylist"></TextView>
+
+</RelativeLayout>
