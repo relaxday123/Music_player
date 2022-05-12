@@ -3,6 +3,7 @@ package com.example.music_player;
 import static com.example.music_player.MainActivity.repeatBoolean;
 import static com.example.music_player.MainActivity.shuffleBoolean;
 import static com.example.music_player.MusicAdapter.mFiles;
+import static com.example.music_player.PlaylistDetails.currentPlaylistPos;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -199,7 +200,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 
                     Thread newThread = new Thread(() -> {
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep((long) 5000);
                             if (min15) {
                                 if (PlayerActivity.musicService != null) {
 //                                    PlayerActivity.musicService.stopForeground(true);
@@ -239,7 +240,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 min30 = true;
                 Thread newThread = new Thread(() -> {
                     try {
-                        Thread.sleep(30 * 60000);
+                        Thread.sleep((long) (30 * 60000));
                         if (min30) {
                             if (PlayerActivity.musicService != null) {
 //                                PlayerActivity.musicService.stopForeground(true);
@@ -266,7 +267,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 min60 = true;
                 Thread newThread = new Thread(() -> {
                     try {
-                        Thread.sleep(60 * 60000);
+                        Thread.sleep((long) (60 * 60000));
                         if (min60) {
                             if (PlayerActivity.musicService != null) {
 //                                PlayerActivity.musicService.stopForeground(true);
@@ -589,7 +590,6 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         String getClass = getIntent().getStringExtra("class");
         try {
             if (getClass.equals("NowPlaying")) {
-//                Log.e("Intent", "return song");
                 uri = Uri.parse(listSongs.get(position).getPath());
                 metaData(uri);
                 song_name.setText(listSongs.get(position).getTitle());
@@ -600,26 +600,14 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 } else {
                     playPauseBtn.setIconResource(R.drawable.ic_play);
                 }
-//                PlayerActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (musicService != null) {
-//                            int mCurrentPosition = musicService.getCurrentPosition() / 1000;
-//                            seekBar.setProgress(mCurrentPosition);
-//                        }
-//                        handler.postDelayed(this, 1000);
-//                    }
-//                });
             } else if (getClass.equals("PlaylistDetailsAdapter")) {
-                listSongs = new ArrayList<>();
-                listSongs.addAll(MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist());
+                listSongs = MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist();
                 if (listSongs != null) {
                     playPauseBtn.setIconResource(R.drawable.ic_pause);
                     uri = Uri.parse(listSongs.get(position).getPath());
                 }
                 Intent intent = new Intent(this, MusicService.class);
                 intent.putExtra("servicePosition", position);
-//                this.bindService(intent,this , BIND_AUTO_CREATE);
                 startService(intent);
             }
             else {
@@ -631,7 +619,6 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 }
                 Intent intent = new Intent(this, MusicService.class);
                 intent.putExtra("servicePosition", position);
-//                this.bindService(intent,this , BIND_AUTO_CREATE);
                 startService(intent);
             }
         } catch (Exception e) {
@@ -736,4 +723,5 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
     public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
     }
+
 }

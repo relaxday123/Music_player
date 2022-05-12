@@ -1,15 +1,14 @@
 package com.example.music_player;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,13 +26,19 @@ public class PlaylistDetails extends AppCompatActivity {
         binding = ActivityPlaylistDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         currentPlaylistPos = getIntent().getIntExtra("index", -1);
+
+//        try {
+//            MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist() =
+//                checkPlaylist(playlist = PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist)}
+//        catch(e: Exception){}
+
         binding.playlistDetailsRV.setItemViewCacheSize(10);
         binding.playlistDetailsRV.setHasFixedSize(true);
         binding.playlistDetailsRV.setLayoutManager(new LinearLayoutManager(this));
 //        MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().addAll(MainActivity.musicFiles);
         adapter = new MusicAdapter(this, MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist(), true);
         binding.playlistDetailsRV.setAdapter(adapter);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         binding.returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +48,7 @@ public class PlaylistDetails extends AppCompatActivity {
         binding.addBtnPD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), SelectionActivity.class));
+                startActivity(new Intent(PlaylistDetails.this, SelectionActivity.class));
             }
         });
         binding.removeAllPD.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +68,9 @@ public class PlaylistDetails extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                             }
-                        })
-                        .show();
+                        });
+                AlertDialog customDialog = builder.create();
+                customDialog.show();
             }
         });
     }
@@ -73,22 +79,16 @@ public class PlaylistDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         binding.playlistNamePD.setText(MusicPlaylist.ref.get(currentPlaylistPos).getName());
-        binding.moreInfoPD.setText("Total " + adapter.getItemCount() + "songs.\n\n" +
+        binding.moreInfoPD.setText("Total " + adapter.getItemCount() + " songs.\n\n" +
                 "Created on:\n" + MusicPlaylist.ref.get(currentPlaylistPos).getCreatedOn() + "\n\n" +
                 MusicPlaylist.ref.get(currentPlaylistPos).getCreatedBy());
         try {
             if (adapter.getItemCount() > 0) {
-                byte[] picture = null;
-                picture = getAlbumArt(MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().get(0).getPath());
-                Bitmap thumb = null;
-                if (picture != null) {
-                    thumb = BitmapFactory.decodeByteArray(picture, 0, picture.length);
-                } else {
-                    thumb = BitmapFactory.decodeResource(getResources(), R.drawable.images);
-                }
                 Glide.with(this)
-                        .load(thumb)
+                        .load(MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().get(0).getPath())
+                        .apply(RequestOptions.placeholderOf(R.drawable.images).centerCrop())
                         .into(binding.playlistImgPD);
+                adapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
             e.printStackTrace();

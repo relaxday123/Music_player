@@ -8,8 +8,6 @@ import static com.example.music_player.ApplicationClass.CHANNEL_ID_2;
 import static com.example.music_player.PlayerActivity.listSongs;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -22,7 +20,6 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -43,6 +40,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     public static final String MUSIC_FILE = "STORED_MUSIC";
     public static final String SONG_NAME = "SONG_NAME";
     public static final String SONG_ARTIST = "SONG_ARTIST";
+    String nowPlayingId = "";
 
     @Override
     public void onCreate() {
@@ -147,6 +145,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         editor.putString(SONG_NAME, musicFiles.get(position).getTitle());
         editor.apply();
         mediaPlayer = MediaPlayer.create(getBaseContext(), uri);
+        nowPlayingId = listSongs.get(position).getId();
     }
 
     void OnCompleted() {

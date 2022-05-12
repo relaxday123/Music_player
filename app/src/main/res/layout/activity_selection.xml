@@ -43,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout"
         android:layout_marginTop="10dp"
-        android:paddingBottom="50dp"
         android:scrollbars="vertical" />
 
 </RelativeLayout>
