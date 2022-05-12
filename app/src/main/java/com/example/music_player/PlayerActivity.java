@@ -73,7 +73,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 //    static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
     private Thread playThread, prevThread, nextThread;
-    MusicService musicService;
+    public static MusicService musicService;
     FrameLayout frag_bottom_player;
     RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 

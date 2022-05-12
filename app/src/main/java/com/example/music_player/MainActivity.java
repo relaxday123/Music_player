@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public static String SONG_NAME_TO_FRAG = null;
     public static final String SONG_NAME = "SONG_NAME";
     public static final String SONG_ARTIST = "SONG_ARTIST";
+    private String MY_SORT_PREF = "SortOrder";
 
     public
     TabLayout tabLayout;
@@ -98,9 +99,23 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 //        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
     }
 
-    public static ArrayList<MusicFiles> getAllAudio(Context context) {
+    public ArrayList<MusicFiles> getAllAudio(Context context) {
+        SharedPreferences preferences = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE);
+        String sortOrder = preferences.getString("sorting", "sortByName");
         ArrayList<MusicFiles> tempAudioList = new ArrayList<>();
+        String order = null;
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        switch (sortOrder) {
+            case "sortByName":
+                order = MediaStore.MediaColumns.DISPLAY_NAME + " ASC";
+                break;
+            case "sortByDate":
+                order = MediaStore.MediaColumns.DATE_ADDED + " ASC";
+                break;
+            case "sortBySize":
+                order = MediaStore.MediaColumns.SIZE + " DESC";
+                break;
+        }
         String[] projection = {
                 MediaStore.Audio.Media.ALBUM,
                 MediaStore.Audio.Media.TITLE,
@@ -110,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 MediaStore.Audio.Media._ID
         };
         Cursor cursor = context.getContentResolver().query(uri, projection,
-                null, null, null);
+                null, null, order);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String album = cursor.getString(0);
@@ -252,5 +267,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             ARTIST_TO_FRAG = null;
             SONG_NAME_TO_FRAG = null;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences.Editor editor = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE).edit();
+        switch (item.getItemId()) {
+            case R.id.by_name:
+                editor.putString("sorting",  "sortByName");
+                editor.apply();
+                this.recreate();
+                break;
+            case R.id.by_date:
+                editor.putString("sorting",  "sortByDate");
+                editor.apply();
+                this.recreate();
+                break;
+            case R.id.by_size:
+                editor.putString("sorting",  "sortBySize");
+                editor.apply();
+                this.recreate();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

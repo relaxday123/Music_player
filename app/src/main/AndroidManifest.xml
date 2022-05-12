@@ -57,6 +57,7 @@
                 <action android:name="actionprevious" />
                 <action android:name="actionnext" />
                 <action android:name="actionplay" />
+                <action android:name="actionexit" />
             </intent-filter>
         </receiver>
     </application>
