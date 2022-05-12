@@ -1,17 +1,8 @@
 package com.example.music_player;
 
-import static com.example.music_player.MainActivity.musicFiles;
 import static com.example.music_player.MainActivity.repeatBoolean;
 import static com.example.music_player.MainActivity.shuffleBoolean;
 import static com.example.music_player.MusicAdapter.mFiles;
-
-import static java.security.AccessController.getContext;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.palette.graphics.Palette;
-import androidx.viewpager.widget.PagerAdapter;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,20 +12,12 @@ import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
-import android.media.MediaMetadata;
 import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,23 +28,17 @@ import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.music_player.databinding.AddPlaylistDialogBinding;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.imageview.ShapeableImageView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -639,7 +616,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         frag_bottom_player = findViewById(R.id.frag_bottom_player);
         timerBtn = findViewById(R.id.timerBtnPA);
         shareBtn = findViewById(R.id.shareBtnPA);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
     }
 
     private void metaData(Uri uri) {

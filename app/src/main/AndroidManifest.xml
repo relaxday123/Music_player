@@ -34,6 +34,9 @@
             android:name=".PlayerActivity"
             android:exported="true" />
         <activity
+            android:name=".PlayerActivity2"
+            android:exported="true" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
