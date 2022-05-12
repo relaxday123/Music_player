@@ -1,8 +1,6 @@
 package com.example.music_player;
 
 import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,10 +28,6 @@ import com.example.music_player.Fragment.OnlineFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     static ArrayList<MusicFiles> musicFiles;
