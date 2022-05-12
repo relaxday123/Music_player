@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="button_sample">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="background">@drawable/gradient_button</item>
+        <item name="android:layout_marginLeft">20dp</item>
+
+    </style>
+
+    <style name="image_button">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="buttonChars">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+    </style>
+
+</resources>
