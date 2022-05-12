@@ -77,6 +77,7 @@ public class SongListActivity extends AppCompatActivity {
                 songListAdapter = new SongListAdapter(SongListActivity.this,songs);
                 songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 songlist.setAdapter(songListAdapter);
+                playAll();
             }
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
@@ -94,6 +95,7 @@ public class SongListActivity extends AppCompatActivity {
                 songListAdapter = new SongListAdapter(SongListActivity.this,songs);
                 songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 songlist.setAdapter(songListAdapter);
+                playAll();
             }
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
@@ -117,6 +119,7 @@ public class SongListActivity extends AppCompatActivity {
                 songListAdapter = new SongListAdapter(SongListActivity.this,songs);
                 songlist.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 songlist.setAdapter(songListAdapter);
+                playAll();
             }
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
@@ -135,6 +138,7 @@ public class SongListActivity extends AppCompatActivity {
         });
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
+        floatingActionButton.setEnabled(false);
     }
 
 
@@ -161,5 +165,16 @@ public class SongListActivity extends AppCompatActivity {
                 album = (Album) intent.getSerializableExtra("itemAlbum");
             }
         }
+    }
+    private void playAll() {
+        floatingActionButton.setEnabled(true);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(SongListActivity.this,PlayerActivity2.class);
+                intent.putExtra("allSongs",songs);
+                startActivity(intent);
+            }
+        });
     }
 }

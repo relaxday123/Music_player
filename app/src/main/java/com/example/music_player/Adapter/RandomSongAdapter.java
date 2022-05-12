@@ -1,6 +1,7 @@
 package com.example.music_player.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.music_player.Model.Song;
+import com.example.music_player.PlayerActivity2;
 import com.example.music_player.R;
 import com.example.music_player.ServiceAPI.APIService;
 import com.example.music_player.ServiceAPI.Dataservice;
@@ -86,6 +88,14 @@ public class RandomSongAdapter extends RecyclerView.Adapter<RandomSongAdapter.Vi
                         }
                     });
                     imgLikes.setEnabled(false);
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, PlayerActivity2.class);
+                    intent.putExtra("Song",rdsong.get(getPosition()));
+                    context.startActivity(intent);
                 }
             });
         }
