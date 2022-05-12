@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlrandomSong">
+        <TextView
+            android:id="@+id/tvtitle3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  If you don't know what to listen!"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:background="#9E9E9E"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvrandomSong"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/rlrandomSong"/>
+
+</RelativeLayout>
