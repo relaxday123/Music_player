@@ -5,13 +5,17 @@ import static com.example.music_player.MainActivity.repeatBoolean;
 import static com.example.music_player.MainActivity.shuffleBoolean;
 import static com.example.music_player.MusicAdapter.mFiles;
 
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.PagerAdapter;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
@@ -30,6 +34,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,11 +49,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
+import com.example.music_player.databinding.AddPlaylistDialogBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -63,19 +72,24 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 
     TextView song_name, song_artist, duration_played, duration_total;
     CircleImageView cover_art;
-    ImageView repeatBtn, shuffleBtn;
+    ImageView repeatBtn, shuffleBtn, timerBtn, shareBtn;
     ImageButton returnBtn;
-    ExtendedFloatingActionButton prevBtn, playPauseBtn, nextBtn;
+    ExtendedFloatingActionButton prevBtn;
+    static ExtendedFloatingActionButton playPauseBtn;
+    ExtendedFloatingActionButton nextBtn;
     SeekBar seekBar;
-    int position = -1;
+    static int position = -1;
     static ArrayList<MusicFiles> listSongs = new ArrayList<>();
     static Uri uri;
 //    static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
-    private Thread playThread, prevThread, nextThread;
+    private Thread playThread, prevThread, nextThread, stopThread;
     public static MusicService musicService;
     FrameLayout frag_bottom_player;
     RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+    boolean min15 = false;
+    boolean min30 = false;
+    boolean min60 = false;
 
     public RotateAnimation spinning(RotateAnimation anim) {
         anim.setDuration(10000);
@@ -148,11 +162,152 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
                 finish();
             }
         });
+        timerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("timer", "min15 = " + min15);
+                if (!min15 && !min30 && !min60)
+                    showBottomSheetDialog();
+                else {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getApplicationContext());
+                    builder.setTitle("Stop timer")
+                            .setMessage("Do you want to stop timer?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    min15 = false;
+                                    min30 = false;
+                                    min60 = false;
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                    AlertDialog customDialog = builder.create();
+                    customDialog.show();
+                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+                }
+            }
+        });
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("audio/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(listSongs.get(position).getPath()));
+                startActivity(Intent.createChooser(shareIntent, "Sharing music file!!!"));
+            }
+        });
+    }
+
+    private void showBottomSheetDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);;
+        dialog.setContentView(R.layout.bottom_sheet_dialog);
+        dialog.show();
+        dialog.findViewById(R.id.min_15).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PlayerActivity.this, "Music will stop after 15 minutes", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                timerBtn.setImageResource(R.drawable.ic_timer_on);
+                min15 = true;
+                Log.d("timer", "min15 = " + min15);
+                    Thread newThread = new Thread(() -> {
+                        try {
+                            Thread.sleep(5000);
+                            if (min15) {
+                                if (PlayerActivity.musicService != null) {
+                                    PlayerActivity.musicService.stopForeground(true);
+                                    PlayerActivity.musicService.mediaPlayer.release();
+                                    PlayerActivity.musicService = null;
+                                }
+//                                System.exit(1);
+//                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                finish();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                newThread.start();
+            }
+        });
+        dialog.findViewById(R.id.min_30).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PlayerActivity.this, "Music will stop after 30 minutes", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                timerBtn.setImageResource(R.drawable.ic_timer_on);
+                min30 = true;
+                Thread newThread = new Thread(() -> {
+                    try {
+                        Thread.sleep(30 * 60000);
+                        if (min15) {
+                            if (PlayerActivity.musicService != null) {
+                                PlayerActivity.musicService.stopForeground(true);
+                                PlayerActivity.musicService.mediaPlayer.release();
+                                PlayerActivity.musicService = null;
+                            }
+                            System.exit(1);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+                newThread.start();
+            }
+        });
+        dialog.findViewById(R.id.min_60).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PlayerActivity.this, "Music will stop after 60 minutes", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                timerBtn.setImageResource(R.drawable.ic_timer_on);
+                min60 = true;
+                Thread newThread = new Thread(() -> {
+                    try {
+                        Thread.sleep(60 * 60000);
+                        if (min15) {
+                            if (PlayerActivity.musicService != null) {
+                                PlayerActivity.musicService.stopForeground(true);
+                                PlayerActivity.musicService.mediaPlayer.release();
+                                PlayerActivity.musicService = null;
+                            }
+                            System.exit(1);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+                newThread.start();
+            }
+        });
+    }
+
+    private void stopThreadBtn() {
+        stopThread = new Thread()
+        {
+            @Override
+            public void run() {
+                super.run();
+                timerBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showBottomSheetDialog();
+                    }
+                });
+            }
+        };
+        stopThread.start();
     }
 
     private void setFullScreen() {
@@ -168,6 +323,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         playThreadBtn();
         nextThreadBtn();
         prevThreadBtn();
+        stopThreadBtn();
         super.onResume();
     }
 
@@ -414,15 +570,57 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 
     private void getIntentMethod() {
         position = getIntent().getIntExtra("position", -1);
-        listSongs = mFiles;
-        if (listSongs != null) {
-            playPauseBtn.setIconResource(R.drawable.ic_pause);
-            uri = Uri.parse(listSongs.get(position).getPath());
-//            Log.e("kteam", uri.toString());
+        String getClass = getIntent().getStringExtra("class");
+        try {
+            if (getClass.equals("NowPlaying")) {
+//                Log.e("Intent", "return song");
+                uri = Uri.parse(listSongs.get(position).getPath());
+                metaData(uri);
+                song_name.setText(listSongs.get(position).getTitle());
+                song_artist.setText(listSongs.get(position).getArtist());
+                seekBar.setMax(musicService.getDuration() / 1000);
+                if (musicService.isPlaying()) {
+                    playPauseBtn.setIconResource(R.drawable.ic_pause);
+                } else {
+                    playPauseBtn.setIconResource(R.drawable.ic_play);
+                }
+//                PlayerActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (musicService != null) {
+//                            int mCurrentPosition = musicService.getCurrentPosition() / 1000;
+//                            seekBar.setProgress(mCurrentPosition);
+//                        }
+//                        handler.postDelayed(this, 1000);
+//                    }
+//                });
+            } else if (getClass.equals("PlaylistDetailsAdapter")) {
+                listSongs = new ArrayList<>();
+                listSongs.addAll(MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist());
+                if (listSongs != null) {
+                    playPauseBtn.setIconResource(R.drawable.ic_pause);
+                    uri = Uri.parse(listSongs.get(position).getPath());
+                }
+                Intent intent = new Intent(this, MusicService.class);
+                intent.putExtra("servicePosition", position);
+//                this.bindService(intent,this , BIND_AUTO_CREATE);
+                startService(intent);
+            }
+            else {
+                Log.e("Intent", "new song");
+                listSongs = mFiles;
+                if (listSongs != null) {
+                    playPauseBtn.setIconResource(R.drawable.ic_pause);
+                    uri = Uri.parse(listSongs.get(position).getPath());
+                }
+                Intent intent = new Intent(this, MusicService.class);
+                intent.putExtra("servicePosition", position);
+//                this.bindService(intent,this , BIND_AUTO_CREATE);
+                startService(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Intent intent = new Intent(this, MusicService.class);
-        intent.putExtra("servicePosition", position);
-        startService(intent);
     }
 
     private void initViews() {
@@ -439,6 +637,8 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         seekBar = findViewById(R.id.seekBar);
         returnBtn = findViewById(R.id.returnBtn);
         frag_bottom_player = findViewById(R.id.frag_bottom_player);
+        timerBtn = findViewById(R.id.timerBtnPA);
+        shareBtn = findViewById(R.id.shareBtnPA);
         getSupportActionBar().hide();
     }
 
@@ -447,50 +647,20 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         retriever.setDataSource(uri.toString());
         int durationTotal = Integer.parseInt(listSongs.get(position).getDuration()) / 1000;
         duration_total.setText(formattedTime(durationTotal));
-        byte[] art = retriever.getEmbeddedPicture();
-        Bitmap bitmap;
-        if (art != null) {
-            bitmap = BitmapFactory.decodeByteArray(art, 0 ,art.length);
-            ImageAnimation(this, cover_art, bitmap);
-            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(@Nullable Palette palette) {
-                    Palette.Swatch swatch = palette.getDominantSwatch();
-                    if (swatch != null) {
-//                        ImageView gredient = findViewById(R.id.cover_art);
-//                        LinearLayout mContainer = findViewById(R.id.mContainer);
-//                        gredient.setBackgroundResource(R.drawable.);
-//                        mContainer.setBackgroundResource(R.drawable.main);
-//                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-//                                new int[]{swatch.getRgb(), 0x00000000});
-//                        gredient.setBackground(gradientDrawable);
-//                        GradientDrawable gradientDrawableBg = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-//                                new int[]{swatch.getRgb(), swatch.getRgb()});
-//                        gredient.setBackground(gradientDrawable);
-//                        song_name.setTextColor(swatch.getTitleTextColor());
-//                        song_artist.setTextColor(swatch.getBodyTextColor());
-                    }
-                    else {
-//                        ImageView gredient = findViewById(R.id.cover_art);
-//                        LinearLayout mContainer = findViewById(R.id.mContainer);
-//                        gredient.setBackgroundResource(R.drawable.);
-//                        mContainer.setBackgroundResource(R.drawable.main);
-//                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-//                                new int[]{0xff000000, 0x00000000});
-//                        gredient.setBackground(gradientDrawable);
-//                        GradientDrawable gradientDrawableBg = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-//                                new int[]{0xff000000, 0xff000000});
-//                        gredient.setBackground(gradientDrawable);
-//                        song_name.setTextColor(Color.WHITE);
-//                        song_artist.setTextColor(Color.DKGRAY);
-                    }
-                }
-            });
-        } else {
-            Glide.with(this)
-                    .asBitmap()
-                    .load(R.drawable.images)
-                    .into(cover_art);
+        try {
+            byte[] art = retriever.getEmbeddedPicture();
+            Bitmap bitmap;
+            if (art != null) {
+                bitmap = BitmapFactory.decodeByteArray(art, 0 ,art.length);
+                ImageAnimation(this, cover_art, bitmap);
+            } else {
+                Glide.with(this)
+                        .asBitmap()
+                        .load(R.drawable.images)
+                        .into(cover_art);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -535,7 +705,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        MusicService.MyBinder myBinder = (MusicService.MyBinder)  iBinder;
+        MusicService.MyBinder myBinder = (MusicService.MyBinder) iBinder;
         musicService = myBinder.getService();
         musicService.setCallBack(this);
         seekBar.setMax(musicService.getDuration() / 1000);

@@ -151,6 +151,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     void OnCompleted() {
         mediaPlayer.setOnCompletionListener(this);
+        PlayerActivity.musicService.showNotification(R.drawable.ic_pause);
+        PlayerActivity.playPauseBtn.setIconResource(R.drawable.ic_pause);
     }
 
     @Override
@@ -194,6 +196,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         PendingIntent exitPending = PendingIntent.getBroadcast(this,  0, exitIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent returnIntent = new Intent(this, NotificationReceiver.class)
+                .setAction(ACTION_EXIT);
+        PendingIntent returnPending = PendingIntent.getBroadcast(this,  0, returnIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         byte[] picture = null;
         picture = getAlbumArt(musicFiles.get(position).getPath());
         Bitmap thumb = null;
@@ -211,6 +218,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 .addAction(playPauseBtn, "Pause", pausePending)
                 .addAction(R.drawable.ic_skip_next, "Next", nextPending)
                 .addAction(R.drawable.ic_exit, "Exit", exitPending)
+//                .ad(returnPending)
+//                .setContentIntent(returnPending)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOnlyAlertOnce(true)

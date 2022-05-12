@@ -4,10 +4,15 @@ import static com.example.music_player.ApplicationClass.ACTION_EXIT;
 import static com.example.music_player.ApplicationClass.ACTION_NEXT;
 import static com.example.music_player.ApplicationClass.ACTION_PLAY;
 import static com.example.music_player.ApplicationClass.ACTION_PREVIOUS;
+import static com.example.music_player.ApplicationClass.ACTION_RETURN;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
@@ -34,6 +39,11 @@ public class NotificationReceiver extends BroadcastReceiver {
                     PlayerActivity.musicService.stopForeground(true);
                     PlayerActivity.musicService.stop();
 //                    PlayerActivity.musicService = null;
+                    break;
+                case ACTION_RETURN:
+                    intent.putExtra("position", PlayerActivity.position);
+                    intent.putExtra("class", "NowPlaying");
+                    ContextCompat.startActivity(context, intent, null);
                     break;
             }
         }

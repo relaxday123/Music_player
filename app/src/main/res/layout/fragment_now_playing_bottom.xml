@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/card_bottom_player"
         android:background="@color/colorPrimary"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="returnToPlayer">
 
         <ImageView
             android:id="@+id/bottom_album_art"

@@ -1,6 +1,8 @@
 package com.example.music_player;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -27,6 +29,10 @@ import com.example.music_player.Fragment.OnlineFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     static ArrayList<MusicFiles> musicFiles;
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new OnlineFragment(), "Online");
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
+        viewPagerAdapter.addFragments(new PlaylistFragment(), "Playlist");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -138,7 +145,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, album, duration, id);
                 // take log.e for check
                 Log.e("Path : " + path, "Album : " + album);
-                tempAudioList.add(musicFiles);
+                if (tempAudioList.isEmpty())
+                    tempAudioList.add(musicFiles);
+                else if (!musicFiles.getTitle().equals(tempAudioList.get(tempAudioList.size()-1).getTitle()))
+                    tempAudioList.add(musicFiles);
             }
             cursor.close();
         }
@@ -290,5 +300,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (PlayerActivity.musicService != null) {
+            PlayerActivity.musicService.stopForeground(true);
+            PlayerActivity.musicService.mediaPlayer.release();
+            PlayerActivity.musicService = null;
+        }
+        System.exit(1);
     }
 }
