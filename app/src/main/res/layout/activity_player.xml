@@ -45,7 +45,6 @@
             android:src="@drawable/ic_favorite_border"
             android:background="@android:color/transparent"
             android:layout_marginEnd="30dp"
-
             app:tint="#BF7373">
         </ImageButton>
 

@@ -22,7 +22,11 @@
             android:exported="false" />
         <activity
             android:name=".PlaylistDetails"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" 
+            android:exported="false" />
+        <activity
+            android:name=".SongListActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

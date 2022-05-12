@@ -1,7 +1,5 @@
 package com.example.music_player;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
@@ -11,6 +9,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoadingScreen extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class LoadingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.activity_loading_screen);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
 
 
         L1 = (LinearLayout)findViewById(R.id.l1);
