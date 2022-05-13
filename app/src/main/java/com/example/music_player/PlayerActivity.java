@@ -210,6 +210,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 //                                    playPauseBtn.setIconResource(R.drawable.ic_play);
 //                                    playPauseBtnClicked();
                                 }
+                                finish();
 //                                System.exit(1);
                             }
                         } catch (InterruptedException e) {
@@ -218,17 +219,17 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                     });
                 newThread.start();
 
-                PlayerActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-    //                        handler.postDelayed(this, 5000);
-                            if (min15) {
-                                if (PlayerActivity.musicService != null) {
-                                    playPauseBtn.setIconResource(R.drawable.ic_play);
-                                }
-                            }
-                    }
-                });
+//                PlayerActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//    //                        handler.postDelayed(this, 5000);
+//                            if (min15) {
+//                                if (PlayerActivity.musicService != null) {
+//                                    playPauseBtn.setIconResource(R.drawable.ic_play);
+//                                }
+//                            }
+//                    }
+//                });
             }
         });
         dialog.findViewById(R.id.min_30).setOnClickListener(new View.OnClickListener() {
@@ -595,13 +596,16 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 song_name.setText(listSongs.get(position).getTitle());
                 song_artist.setText(listSongs.get(position).getArtist());
                 seekBar.setMax(musicService.getDuration() / 1000);
-                if (musicService.isPlaying()) {
-                    playPauseBtn.setIconResource(R.drawable.ic_pause);
-                } else {
-                    playPauseBtn.setIconResource(R.drawable.ic_play);
+                if (musicService != null) {
+                    if (musicService.isPlaying()) {
+                        playPauseBtn.setIconResource(R.drawable.ic_play);
+                    } else {
+                        playPauseBtn.setIconResource(R.drawable.ic_pause);
+                    }
                 }
             } else if (getClass.equals("PlaylistDetailsAdapter")) {
                 listSongs = MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist();
+                Log.d("playlist", listSongs.toString());
                 if (listSongs != null) {
                     playPauseBtn.setIconResource(R.drawable.ic_pause);
                     uri = Uri.parse(listSongs.get(position).getPath());

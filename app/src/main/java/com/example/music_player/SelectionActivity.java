@@ -1,5 +1,6 @@
 package com.example.music_player;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -56,5 +57,25 @@ public class SelectionActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences(MainActivity.MUSIC_LAST_PLAYED, MODE_PRIVATE);
+        String path = preferences.getString(MainActivity.MUSIC_FILE, null);
+        String artist = preferences.getString(MainActivity.SONG_ARTIST, null);
+        String song_name = preferences.getString(MainActivity.SONG_NAME, null);
+        if (path != null) {
+            MainActivity.SHOW_MINI_PLAYER = true;
+            MainActivity.PATH_TO_FRAG = path;
+            MainActivity.ARTIST_TO_FRAG = artist;
+            MainActivity.SONG_NAME_TO_FRAG = song_name;
+        } else {
+            MainActivity.SHOW_MINI_PLAYER = false;
+            MainActivity.PATH_TO_FRAG = null;
+            MainActivity.ARTIST_TO_FRAG = null;
+            MainActivity.SONG_NAME_TO_FRAG = null;
+        }
     }
 }

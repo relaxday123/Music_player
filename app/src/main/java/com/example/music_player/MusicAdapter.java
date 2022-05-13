@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,7 +29,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
     private Context mContext;
     static ArrayList<MusicFiles> mFiles;
-    Boolean playlistDetails, selectionActivity = false;
+    boolean playlistDetails = false;
+    boolean selectionActivity = false;
 
     MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles, Boolean playlistDetails) {
         this.mFiles = mFiles;
@@ -70,23 +72,28 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         }
 
         try {
-//            if (playlistDetails) {
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(mContext, PlayerActivity.class);
-//                        intent.putExtra("position", holder.getAdapterPosition());
-//                        intent.putExtra("class", "PlaylistDetailsAdapter");
-//                        mContext.startActivity(intent);
-//                    }
-//                });
-//            } else if (selectionActivity) {
-//                if (addSong(mFiles.get(position))) {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-//                } else {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
-//                }
-//            } else {
+            if (playlistDetails) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, PlayerActivity.class);
+                        intent.putExtra("position", holder.getAdapterPosition());
+                        intent.putExtra("class", "PlaylistDetailsAdapter");
+                        ContextCompat.startActivity(mContext, intent, null);
+                    }
+                });
+            } else if (selectionActivity) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (addSong(mFiles.get(holder.getAdapterPosition()))) {
+                            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                        } else {
+                            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                        }
+                    }
+                });
+            } else {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -94,10 +101,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                         intent.putExtra("position", holder.getAdapterPosition());
                         intent.putExtra("class", "CreateNewSong");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mContext.startActivity(intent);
+//                        mContext.startActivity(intent);
+                        ContextCompat.startActivity(mContext, intent, null);
                     }
                 });
-//            }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

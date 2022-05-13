@@ -11,9 +11,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
+        android:layout_marginTop="10dp"
         android:paddingBottom="40dp"
-        android:layout_marginTop="10dp" />
+        android:scrollbars="vertical" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -28,4 +28,16 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="80dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frag_bottom_player">
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.example.music_player.NowPlayingBottomFragment"
+            tools:layout="@layout/fragment_now_playing_bottom">
+        </fragment>
+    </FrameLayout>
 </RelativeLayout>

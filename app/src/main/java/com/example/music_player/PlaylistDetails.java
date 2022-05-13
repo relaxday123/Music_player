@@ -1,8 +1,8 @@
 package com.example.music_player;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.view.View;
 
@@ -54,7 +54,7 @@ public class PlaylistDetails extends AppCompatActivity {
         binding.removeAllPD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getApplicationContext());
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(PlaylistDetails.this);
                 builder.setTitle("Remove")
                         .setMessage("Do you want to remove all songs from playlist?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -62,6 +62,11 @@ public class PlaylistDetails extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().clear();
                                 adapter.refreshPlaylist();
+                                if (PlayerActivity.musicService != null) {
+                                    PlayerActivity.musicService.stopForeground(true);
+                                    PlayerActivity.musicService.mediaPlayer.release();
+                                    PlayerActivity.musicService = null;
+                                }
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -75,9 +80,12 @@ public class PlaylistDetails extends AppCompatActivity {
         });
     }
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.refreshPlaylist();
+        adapter.notifyDataSetChanged();
         binding.playlistNamePD.setText(MusicPlaylist.ref.get(currentPlaylistPos).getName());
         binding.moreInfoPD.setText("Total " + adapter.getItemCount() + " songs.\n\n" +
                 "Created on:\n" + MusicPlaylist.ref.get(currentPlaylistPos).getCreatedOn() + "\n\n" +
@@ -88,17 +96,9 @@ public class PlaylistDetails extends AppCompatActivity {
                         .load(MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().get(0).getPath())
                         .apply(RequestOptions.placeholderOf(R.drawable.images).centerCrop())
                         .into(binding.playlistImgPD);
-                adapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private byte[] getAlbumArt(String uri) {
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(uri);
-        byte[] art = retriever.getEmbeddedPicture();
-        return art;
     }
 }
