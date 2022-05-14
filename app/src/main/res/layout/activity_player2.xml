@@ -47,40 +47,14 @@
             android:layout_marginEnd="30dp"
             app:tint="#BF7373">
         </ImageButton>
-
     </LinearLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/images"
-        android:id="@+id/cover_art"
-        android:layout_weight="1">
-    </de.hdodenhof.circleimageview.CircleImageView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="@string/song_name"
-        android:id="@+id/song_name"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:gravity="center">
-    </TextView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="@string/song_artist"
-        android:id="@+id/song_artist"
-        android:textSize="15dp"
-        android:textColor="@color/white"
-        android:gravity="center">
-    </TextView>
-
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/playervp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+        </androidx.viewpager.widget.ViewPager>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,7 +114,6 @@
             android:text="@string/start_tv"
             android:gravity="center">
         </TextView>
-
         <androidx.appcompat.widget.AppCompatSeekBar
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
