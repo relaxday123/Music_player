@@ -1,5 +1,7 @@
 package com.example.music_player;
 
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,6 +54,24 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permission();
+
+        SharedPreferences editor = getSharedPreferences("FAVORITES", MODE_PRIVATE);
+//        String jsonString = editor.getString("FavoriteSongs", null);
+//        Object typeToken = new TypeToken<ArrayList<MusicFiles>>(){}.getType();
+//        if (jsonString != null) {
+//            ArrayList<MusicFiles> data = new GsonBuilder().create().fromJson(jsonString, (Type) typeToken);
+//        }
+        musicPlaylist = new MusicPlaylist();
+        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
+        if (jsonStringPlaylist != null) {
+//            Gson gson = new Gson();
+////            MusicPlaylist dataPlaylist = new GsonBuilder().create().fromJson(jsonStringPlaylist, MusicPlaylist.class);
+////            musicPlaylist = dataPlaylist;
+//            musicPlaylist = gson.fromJson(jsonStringPlaylist, MusicPlaylist.class);
+//            TypeToken<ArrayList<Playlist>> token = new TypeToken<ArrayList<Playlist>>(){};
+//            Gson gson = new Gson();
+//            musicPlaylist.ref = gson.fromJson(jsonStringPlaylist, token.getType());// = gson.fromJson(jsonStringPlaylist, token.getType());
+        }
     }
 
     private void permission() {
@@ -272,6 +292,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             ARTIST_TO_FRAG = null;
             SONG_NAME_TO_FRAG = null;
         }
+
+//        Gson gson = new Gson();
+//        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+////        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
+//        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
+//        Log.d("JSON", jsonStringPlaylist);
+//        editor.putString("MusicPlaylist", jsonStringPlaylist);
+//        editor.apply();
+////        Log.d("gson", jsonStringPlaylist);
     }
 
     @Override

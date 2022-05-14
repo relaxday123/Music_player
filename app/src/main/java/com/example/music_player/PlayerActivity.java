@@ -3,6 +3,7 @@ package com.example.music_player;
 import static com.example.music_player.MainActivity.repeatBoolean;
 import static com.example.music_player.MainActivity.shuffleBoolean;
 import static com.example.music_player.MusicAdapter.mFiles;
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
 import static com.example.music_player.PlaylistDetails.currentPlaylistPos;
 
 import android.content.ComponentName;
@@ -604,7 +605,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                     }
                 }
             } else if (getClass.equals("PlaylistDetailsAdapter")) {
-                listSongs = MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist();
+                listSongs = musicPlaylist.ref.get(currentPlaylistPos).getPlaylist();
                 Log.d("playlist", listSongs.toString());
                 if (listSongs != null) {
                     playPauseBtn.setIconResource(R.drawable.ic_pause);

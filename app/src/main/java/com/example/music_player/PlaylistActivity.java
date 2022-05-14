@@ -23,6 +23,8 @@ public class PlaylistActivity extends AppCompatActivity {
     ActivityPlaylistBinding binding;
     PlaylistViewAdapter adapter;
 
+    static MusicPlaylist musicPlaylist = new MusicPlaylist();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,7 @@ public class PlaylistActivity extends AppCompatActivity {
         binding.linearLayout.setHasFixedSize(true);
         binding.linearLayout.setItemViewCacheSize(13);
         binding.linearLayout.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new PlaylistViewAdapter(this, PlaylistViewAdapter.playlistList = MusicPlaylist.ref);
+        adapter = new PlaylistViewAdapter(this, PlaylistViewAdapter.playlistList = musicPlaylist.ref);
         binding.linearLayout.setAdapter(adapter);
 
         binding.addPlaylist.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +70,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
     private void addPlaylist(String playlistName, String author) {
         boolean playlistExists = false;
-        for (Playlist i : MusicPlaylist.ref) {
+        for (Playlist i : musicPlaylist.ref) {
             if (playlistName.equals(i.getName())) {
                 playlistExists = true;
                 break;
@@ -83,7 +85,7 @@ public class PlaylistActivity extends AppCompatActivity {
             tempPlaylist.setPlaylist(new ArrayList<MusicFiles>());
             tempPlaylist.setCreatedBy(author);
             tempPlaylist.setCreatedOn(new SimpleDateFormat("dd MM yyyy", Locale.ENGLISH).format(Calendar.getInstance().getTime()));
-            MusicPlaylist.ref.add(tempPlaylist);
+            musicPlaylist.ref.add(tempPlaylist);
             adapter.refreshPlaylist();
         }
     }

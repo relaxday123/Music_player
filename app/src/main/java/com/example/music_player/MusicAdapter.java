@@ -1,5 +1,7 @@
 package com.example.music_player;
 
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -180,18 +182,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     private boolean addSong(MusicFiles musicFiles) {
-        for (MusicFiles i :MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist()) {
+        for (MusicFiles i :musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist()) {
             if (musicFiles.getId().equals(i.getId())) {
-                MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().remove(i);
+                musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().remove(i);
                 return false;
             }
         }
-        MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().add(musicFiles);
+        musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().add(musicFiles);
         return true;
     }
 
     public void refreshPlaylist() {
-        mFiles = MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist();
+        mFiles = musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist();
         notifyDataSetChanged();
     }
 }

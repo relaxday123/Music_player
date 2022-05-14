@@ -34,6 +34,7 @@
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/drawable/red_scrubber_progress.xml" value="0.3335" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/drawable/roundcorner.xml" value="0.3115" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/drawable/tab_indicator.xml" value="0.3675" />
+        <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/activity_favorite.xml" value="0.36666666666666664" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/activity_main.xml" value="0.2612359550561798" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/activity_player.xml" value="0.25" />
@@ -46,6 +47,7 @@
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/activity_song_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/add_playlist_dialog.xml" value="0.17831813576494426" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/banner_line.xml" value="0.17831813576494426" />
+        <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/favorite_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/fragment_now_playing_bottom.xml" value="0.33" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/fragment_offline.xml" value="0.259963768115942" />
         <entry key="..\:/Android Studio/Music_player/app/src/main/res/layout/fragment_online.xml" value="0.259963768115942" />

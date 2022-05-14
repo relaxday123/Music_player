@@ -53,7 +53,7 @@ public class SelectionActivity extends AppCompatActivity {
                         myFiles.add(song);
                     }
                 }
-                adapter.updateList(MainActivity.musicFiles);
+                adapter.updateList(myFiles);
                 return true;
             }
         });

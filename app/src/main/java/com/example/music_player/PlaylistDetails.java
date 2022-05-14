@@ -1,9 +1,13 @@
 package com.example.music_player;
 
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.music_player.databinding.ActivityPlaylistDetailsBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 
 public class PlaylistDetails extends AppCompatActivity {
     ActivityPlaylistDetailsBinding binding;
@@ -36,7 +41,7 @@ public class PlaylistDetails extends AppCompatActivity {
         binding.playlistDetailsRV.setHasFixedSize(true);
         binding.playlistDetailsRV.setLayoutManager(new LinearLayoutManager(this));
 //        MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().addAll(MainActivity.musicFiles);
-        adapter = new MusicAdapter(this, MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist(), true);
+        adapter = new MusicAdapter(this, musicPlaylist.ref.get(currentPlaylistPos).getPlaylist(), true);
         binding.playlistDetailsRV.setAdapter(adapter);
 //        getSupportActionBar().hide();
         binding.returnBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +65,7 @@ public class PlaylistDetails extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().clear();
+                                musicPlaylist.ref.get(currentPlaylistPos).getPlaylist().clear();
                                 adapter.refreshPlaylist();
                                 if (PlayerActivity.musicService != null) {
                                     PlayerActivity.musicService.stopForeground(true);
@@ -86,19 +91,28 @@ public class PlaylistDetails extends AppCompatActivity {
         super.onResume();
         adapter.refreshPlaylist();
         adapter.notifyDataSetChanged();
-        binding.playlistNamePD.setText(MusicPlaylist.ref.get(currentPlaylistPos).getName());
+        binding.playlistNamePD.setText(musicPlaylist.ref.get(currentPlaylistPos).getName());
         binding.moreInfoPD.setText("Total " + adapter.getItemCount() + " songs.\n\n" +
-                "Created on:\n" + MusicPlaylist.ref.get(currentPlaylistPos).getCreatedOn() + "\n\n" +
-                MusicPlaylist.ref.get(currentPlaylistPos).getCreatedBy());
+                "Created on:\n" + musicPlaylist.ref.get(currentPlaylistPos).getCreatedOn() + "\n\n" +
+                musicPlaylist.ref.get(currentPlaylistPos).getCreatedBy());
         try {
             if (adapter.getItemCount() > 0) {
                 Glide.with(this)
-                        .load(MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().get(0).getPath())
+                        .load(musicPlaylist.ref.get(currentPlaylistPos).getPlaylist().get(0).getPath())
                         .apply(RequestOptions.placeholderOf(R.drawable.images).centerCrop())
                         .into(binding.playlistImgPD);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+//        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
+        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
+        Log.d("JSON", jsonStringPlaylist);
+        editor.putString("MusicPlaylist", jsonStringPlaylist);
+        editor.apply();
+        Log.d("gson", jsonStringPlaylist);
     }
 }
