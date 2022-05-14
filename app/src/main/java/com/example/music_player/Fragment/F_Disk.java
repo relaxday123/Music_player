@@ -1,13 +1,13 @@
 package com.example.music_player.Fragment;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,8 +23,8 @@ public class F_Disk extends Fragment {
     Context context;
     View view;
     CircleImageView circleImageView;
-    ObjectAnimator objectAnimator;
     TextView SongName,Artist;
+    RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
 
     @Nullable
@@ -34,11 +34,11 @@ public class F_Disk extends Fragment {
         circleImageView = view.findViewById(R.id.cover_art);
         SongName = view.findViewById(R.id.song_name);
         Artist = view.findViewById(R.id.song_artist);
-        objectAnimator = ObjectAnimator.ofFloat(circleImageView,"rotation",0f,360f);
-        objectAnimator.setDuration(10000);
-        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
-        objectAnimator.setInterpolator(new LinearInterpolator());
+
+
+        spinning(anim);
+        circleImageView.startAnimation(anim);
+
         inflater = LayoutInflater.from(getContext());
         context = inflater.getContext();
         return view;
@@ -49,5 +49,13 @@ public class F_Disk extends Fragment {
             Artist.setText(artist);
     }
     //675-712----73-79-----68-
+
+    public RotateAnimation spinning(RotateAnimation anim) {
+        anim.setDuration(10000);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+
+        return anim;
+    }
 
 }
