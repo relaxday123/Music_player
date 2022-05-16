@@ -176,8 +176,9 @@ public class SongListActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(SongListActivity.this,PlayerActivity2.class);
+                Intent intent = new Intent(SongListActivity.this,PlayerActivity2.class);
                 intent.putExtra("allSongs",songs);
+                if (PlayerActivity2.mediaPlayer.isPlaying()) PlayerActivity2.mediaPlayer.stop();
                 startActivity(intent);
             }
         });
