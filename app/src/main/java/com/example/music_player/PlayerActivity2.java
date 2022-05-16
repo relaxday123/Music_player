@@ -46,7 +46,7 @@ public class PlayerActivity2 extends AppCompatActivity {
     public static PlayerVPager playerVPager;
     F_Disk f_disk;
     F_PlayerListSong f_playerListSong;
-    MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
     int pos = 0;
     boolean repeatBoolean = false;
     boolean shuffleBoolean = false;
@@ -280,6 +280,7 @@ public class PlayerActivity2 extends AppCompatActivity {
 //        Log.d("ooooo",listsongs.get(0).getSongName());
         if (listsongs.size() > 0 ) {
 //            getSupportActionBar().setTitle();
+//            mediaPlayer.stop();
             Log.d("BBBBBB","hassong+1");
             new playMp3().execute(listsongs.get(0).getSongURL());
             playPauseBtn.setIconResource(R.drawable.ic_pause);
@@ -297,6 +298,7 @@ public class PlayerActivity2 extends AppCompatActivity {
         protected void onPostExecute(String song) {
             super.onPostExecute(song);
             try {
+                if (mediaPlayer.isPlaying()) mediaPlayer.stop();
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -311,11 +313,13 @@ public class PlayerActivity2 extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//            if (mediaPlayer.isPlaying()) mediaPlayer.stop();
             mediaPlayer.start();
             Log.d("BBBBBB","songplayed");
             SongDuration();
             curTime();
         }
+
     }
 
     private void SongDuration() {
