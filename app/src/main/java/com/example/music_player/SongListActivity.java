@@ -158,6 +158,7 @@ public class SongListActivity extends AppCompatActivity {
 
     private void DataIntent() {
         Intent intent = getIntent();
+//        if (!songs.isEmpty()) songs.clear();
         if (intent != null){
             if (intent.hasExtra("Banner")){
                 banner = (Theme) intent.getSerializableExtra("Banner");
