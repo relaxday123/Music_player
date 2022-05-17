@@ -3,6 +3,7 @@ package com.example.music_player;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 
 public class SongListActivity extends AppCompatActivity {
 
+
     CoordinatorLayout coordinatorLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
     RecyclerView songlist;
@@ -49,6 +51,8 @@ public class SongListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         DataIntent();
         GetData();
         init();
@@ -154,6 +158,7 @@ public class SongListActivity extends AppCompatActivity {
 
     private void DataIntent() {
         Intent intent = getIntent();
+//        if (!songs.isEmpty()) songs.clear();
         if (intent != null){
             if (intent.hasExtra("Banner")){
                 banner = (Theme) intent.getSerializableExtra("Banner");
@@ -171,8 +176,9 @@ public class SongListActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(SongListActivity.this,PlayerActivity2.class);
+                Intent intent = new Intent(SongListActivity.this,PlayerActivity2.class);
                 intent.putExtra("allSongs",songs);
+                if (PlayerActivity2.mediaPlayer.isPlaying()) PlayerActivity2.mediaPlayer.stop();
                 startActivity(intent);
             }
         });

@@ -620,7 +620,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         shuffleBtn = findViewById(R.id.shuffleBtn);
         seekBar = findViewById(R.id.seekBar);
         returnBtn = findViewById(R.id.returnBtn);
-        frag_bottom_player = findViewById(R.id.frag_bottom_player);
+//        frag_bottom_player = findViewById(R.id.frag_bottom_player);
         timerBtn = findViewById(R.id.timerBtnPA);
         shareBtn = findViewById(R.id.shareBtnPA);
         favBtn = findViewById(R.id.favoriteBtn);
