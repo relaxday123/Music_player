@@ -1,12 +1,10 @@
 package com.example.music_player;
 
-import static com.example.music_player.PlaylistDetails.currentPlaylistPos;
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,11 +33,6 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
         this.playlistList = playlistList;
         this.pContext = mContext;
     }
-
-//    @Override
-//    public void onBindViewHolder(@NonNull PlaylistViewAdapter holder, int position) {
-//
-//    }
 
     @NonNull
     @Override
@@ -65,7 +57,7 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    MusicPlaylist.ref.remove(holder.getAdapterPosition());
+                                    musicPlaylist.ref.remove(holder.getAdapterPosition());
                                     refreshPlaylist();
                                 }
                             })
@@ -90,9 +82,9 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
             }
         });
 
-        if (MusicPlaylist.ref.get(position).getPlaylist().size() > 0) {
+        if (musicPlaylist.ref.get(position).getPlaylist().size() > 0) {
             Glide.with(pContext)
-                    .load(getAlbumArt(MusicPlaylist.ref.get(position).getPlaylist().get(0).getPath()))
+                    .load(getAlbumArt(musicPlaylist.ref.get(position).getPlaylist().get(0).getPath()))
                     .apply(RequestOptions.placeholderOf(R.drawable.images).centerCrop())
                     .into(holder.album_art);
         }
@@ -120,7 +112,7 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
     public void refreshPlaylist() {
         playlistList = new ArrayList<>();
-        playlistList.addAll(MusicPlaylist.ref);
+        playlistList.addAll(musicPlaylist.ref);
         notifyDataSetChanged();
     }
 

@@ -1,5 +1,7 @@
 package com.example.music_player;
 
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -18,9 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,13 +26,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder> {
 
     private Context mContext;
     static ArrayList<MusicFiles> mFiles;
-    Boolean playlistDetails, selectionActivity = false;
+    boolean playlistDetails = false;
+    boolean selectionActivity = false;
 
     MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles, Boolean playlistDetails) {
         this.mFiles = mFiles;
@@ -76,34 +74,40 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         }
 
         try {
-//            if (playlistDetails) {
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(mContext, PlayerActivity.class);
-//                        intent.putExtra("position", holder.getAdapterPosition());
-//                        intent.putExtra("class", "PlaylistDetailsAdapter");
-//                        mContext.startActivity(intent);
-//                    }
-//                });
-//            } else
-//                if (selectionActivity) {
-//                if (addSong(mFiles.get(position))) {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-//                } else {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
-//                }
-//            } else {
+            if (playlistDetails) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, PlayerActivity.class);
+                        intent.putExtra("position", holder.getAdapterPosition());
+                        intent.putExtra("class", "PlaylistDetailsAdapter");
+                        ContextCompat.startActivity(mContext, intent, null);
+                    }
+                });
+            } else if (selectionActivity) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (addSong(mFiles.get(holder.getAdapterPosition()))) {
+                            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                        } else {
+                            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                        }
+                    }
+                });
+            } else {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(mContext, PlayerActivity.class);
                         intent.putExtra("position", holder.getAdapterPosition());
                         intent.putExtra("class", "CreateNewSong");
-                        mContext.startActivity(intent);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        mContext.startActivity(intent);
+                        ContextCompat.startActivity(mContext, intent, null);
                     }
                 });
-//            }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,10 +124,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                             Toast.makeText(mContext, "Delete Clicked!!", Toast.LENGTH_SHORT).show();
                             deleteFile(holder.getAdapterPosition(), view);
                             break;
-                        case R.id.addToPlaylist:
-                            Toast.makeText(mContext, "Add Clicked!!", Toast.LENGTH_SHORT).show();
-                            addToPlaylist(holder.getAdapterPosition(), view);
-                            break;
                     }
                     return true;
                 });
@@ -132,26 +132,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     private void deleteFile(int position, View v) {
-        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                Long.parseLong(mFiles.get(position).getId())); // content://
-        File file = new File(mFiles.get(position).getPath());
-        Log.d("Path", mFiles.get(position).getPath());
-        boolean deleted = file.delete(); // delete your file
-        if (deleted) {
-            mContext.getContentResolver().delete(contentUri, null, null);
-            mFiles.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, mFiles.size());
-            Snackbar.make(v, "File Deleted : ", Snackbar.LENGTH_LONG)
-                    .show();
-        } else {
-            // may be file in sd card
-            Snackbar.make(v, "Can't be deleted : ", Snackbar.LENGTH_LONG)
-                    .show();
-        }
-    }
-
-    private void addToPlaylist(int position, View v) {
         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 Long.parseLong(mFiles.get(position).getId())); // content://
         File file = new File(mFiles.get(position).getPath());
@@ -202,18 +182,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     private boolean addSong(MusicFiles musicFiles) {
-        for (MusicFiles i :MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist()) {
-            if (musicFiles.getId() == i.getId()) {
-                MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().remove(i);
+        for (MusicFiles i :musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist()) {
+            if (musicFiles.getId().equals(i.getId())) {
+                musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().remove(i);
                 return false;
             }
         }
-        MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().add(musicFiles);
+        musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist().add(musicFiles);
         return true;
     }
 
     public void refreshPlaylist() {
-        mFiles = MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist();
+        mFiles = musicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist();
         notifyDataSetChanged();
     }
 }

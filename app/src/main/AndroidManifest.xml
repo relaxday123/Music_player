@@ -17,13 +17,22 @@
         android:theme="@style/Theme.Music_player"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SelectionActivity"
-            android:screenOrientation="portrait"
+            android:name=".FavoriteActivity"
             android:exported="false" />
         <activity
-            android:name=".PlaylistDetails"
-            android:screenOrientation="portrait" 
+            android:name=".PlaylistActivity"
             android:exported="false" />
+        <activity
+            android:name=".SongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlaylistDetails"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SongListActivity"
             android:exported="false" />

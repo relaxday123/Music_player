@@ -13,14 +13,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.IBinder;
-import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.music_player.databinding.FragmentNowPlayingBottomBinding;
@@ -208,9 +203,24 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
     public void onResume() {
         super.onResume();
 
-//        if (PlayerActivity.musicService != null) {
-//            getView().setVisibility(View.VISIBLE);
-//        }
+        if (PlayerActivity.musicService != null) {
+            assert getFragmentManager() != null;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.show(this);
+            ft.commit();
+            if (PlayerActivity.musicService.isPlaying()) {
+                playPauseBtn.setImageResource(R.drawable.ic_pause);
+            } else {
+                playPauseBtn.setImageResource(R.drawable.ic_play);
+            }
+        }
+
+        if (PlayerActivity.musicService == null) {
+            assert getFragmentManager() != null;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.hide(this);
+            ft.commit();
+        }
 
         if (SHOW_MINI_PLAYER) {
             if (PATH_TO_FRAG != null) {
@@ -238,16 +248,6 @@ public class NowPlayingBottomFragment extends Fragment implements ServiceConnect
         if (getContext() != null) {
             getContext().unbindService(this);
         }
-        assert getFragmentManager() != null;
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.show(this);
-        ft.commit();
-
-//        if (musicService.isPlaying()) {
-//            playPauseBtn.setImageResource(R.drawable.ic_pause);
-//        } else {
-//            playPauseBtn.setImageResource(R.drawable.ic_play);
-//        }
     }
 
     private byte[] getAlbumArt(String uri) {

@@ -65,4 +65,17 @@ public class MusicFiles {
     public void setId(String id) {
         this.id = id;
     }
+
+    public static int favoriteChecker(String id) {
+        PlayerActivity.isFavorite = false;
+        int index = 0;
+        for (MusicFiles i : FavoriteActivity.favoriteSongs) {
+            if (id.equals(i.id)) {
+                PlayerActivity.isFavorite = true;
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
 }

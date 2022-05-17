@@ -1,5 +1,8 @@
 package com.example.music_player;
 
+import static com.example.music_player.FavoriteActivity.favoriteSongs;
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,7 +29,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.music_player.Fragment.OnlineFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -52,6 +58,27 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permission();
+
+        favoriteSongs = new ArrayList<>();
+        SharedPreferences editor = getSharedPreferences("FAVORITES", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String jsonString = editor.getString("FavoriteSongs", null);
+        Type typeToken = new TypeToken<ArrayList<MusicFiles>>(){}.getType();
+        Type typeToken1 = new TypeToken<ArrayList<MusicPlaylist>>(){}.getType();
+        if (jsonString != null) {
+            ArrayList<MusicFiles> data = gson.fromJson(jsonString, typeToken);
+            favoriteSongs.addAll(data);
+        }
+        musicPlaylist = new MusicPlaylist();
+        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
+        Log.d("playlist", jsonStringPlaylist);
+        if (jsonStringPlaylist != null) {
+            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
+//            musicPlaylist = dataPlaylist;
+//            for (MusicPlaylist.ref i : dataPlaylist.ref) {
+//                musicPlaylist.ref = i;
+//            }
+        }
     }
 
     private void permission() {
@@ -88,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new OnlineFragment(), "Online");
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
-        viewPagerAdapter.addFragments(new PlaylistFragment(), "Playlist");
+//        viewPagerAdapter.addFragments(new PlaylistFragment(), "Playlist");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -250,10 +277,37 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 myFiles.add(song);
             }
         }
-        OfflineFragment.musicAdapter.updateList(myFiles);
+//        OfflineFragment.musicAdapter.updateList(myFiles);
         return true;
     }
 
+    @Override
+    protected void onResume() {
+//         super.onResume();
+//         SharedPreferences preferences = getSharedPreferences(MUSIC_LAST_PLAYED, MODE_PRIVATE);
+//         String path = preferences.getString(MUSIC_FILE, null);
+//         String artist = preferences.getString(SONG_ARTIST, null);
+//         String song_name = preferences.getString(SONG_NAME, null);
+//         if (path != null) {
+//             SHOW_MINI_PLAYER = true;
+//             PATH_TO_FRAG = path;
+//             ARTIST_TO_FRAG = artist;
+//             SONG_NAME_TO_FRAG = song_name;
+//         } else {
+//             SHOW_MINI_PLAYER = false;
+//             PATH_TO_FRAG = null;
+//             ARTIST_TO_FRAG = null;
+//             SONG_NAME_TO_FRAG = null;
+//         }
+
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+        String jsonString = gson.toJson(favoriteSongs);
+        editor.putString("FavoriteSongs", jsonString);
+        String jsonStringPlaylist = gson.toJson(musicPlaylist);
+        editor.putString("MusicPlaylist", jsonStringPlaylist);
+        editor.apply();
+    }
 //    @Override
 //    protected void onResume() {
 //        super.onResume();

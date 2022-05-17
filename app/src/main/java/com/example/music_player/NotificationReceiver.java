@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
@@ -34,11 +32,9 @@ public class NotificationReceiver extends BroadcastReceiver {
                     context.startService(serviceIntent);
                     break;
                 case ACTION_EXIT:
-//                    serviceIntent.putExtra("ActionName", "exit");
-//                    context.startService(serviceIntent);
                     PlayerActivity.musicService.stopForeground(true);
-                    PlayerActivity.musicService.stop();
-//                    PlayerActivity.musicService = null;
+                    PlayerActivity.musicService.mediaPlayer.release();
+                    PlayerActivity.musicService = null;
                     break;
                 case ACTION_RETURN:
                     intent.putExtra("position", PlayerActivity.position);

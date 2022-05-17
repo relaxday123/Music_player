@@ -1,8 +1,11 @@
 package com.example.music_player;
 
+import static com.example.music_player.FavoriteActivity.favoriteSongs;
 import static com.example.music_player.MainActivity.repeatBoolean;
 import static com.example.music_player.MainActivity.shuffleBoolean;
 import static com.example.music_player.MusicAdapter.mFiles;
+import static com.example.music_player.PlaylistActivity.musicPlaylist;
+import static com.example.music_player.PlaylistDetails.currentPlaylistPos;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -50,7 +53,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
     TextView song_name, song_artist, duration_played, duration_total;
     CircleImageView cover_art;
     ImageView repeatBtn, shuffleBtn, timerBtn, shareBtn;
-    ImageButton returnBtn;
+    ImageButton returnBtn, favBtn;
     ExtendedFloatingActionButton prevBtn;
     static ExtendedFloatingActionButton playPauseBtn;
     ExtendedFloatingActionButton nextBtn;
@@ -67,6 +70,8 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
     boolean min15 = false;
     boolean min30 = false;
     boolean min60 = false;
+    static boolean isFavorite = false;
+    int fIndex = -1;
 
     public RotateAnimation spinning(RotateAnimation anim) {
         anim.setDuration(10000);
@@ -83,6 +88,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         setContentView(R.layout.activity_player);
         initViews();
         getIntentMethod();
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progess, boolean fromUser) {
@@ -142,36 +148,6 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 finish();
             }
         });
-        timerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("timer", "min15 = " + min15);
-                if (!min15 && !min30 && !min60)
-                    showBottomSheetDialog();
-                else {
-                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getApplicationContext());
-                    builder.setTitle("Stop timer")
-                            .setMessage("Do you want to stop timer?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    min15 = false;
-                                    min30 = false;
-                                    min60 = false;
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                    AlertDialog customDialog = builder.create();
-                    customDialog.show();
-                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
-                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
-                }
-            }
-        });
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +156,25 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 shareIntent.setType("audio/*");
                 shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(listSongs.get(position).getPath()));
                 startActivity(Intent.createChooser(shareIntent, "Sharing music file!!!"));
+            }
+        });
+        favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFavorite) {
+                    isFavorite = false;
+                    favBtn.setImageResource(R.drawable.ic_favorite_border);
+                    favoriteSongs.remove(fIndex);
+//                    PlayerActivity.musicService.stopForeground(true);
+//                    PlayerActivity.musicService.mediaPlayer.release();
+//                    PlayerActivity.musicService = null;
+//                    finish();
+                } else {
+                    isFavorite = true;
+                    favBtn.setImageResource(R.drawable.ic_favorite_full);
+                    favoriteSongs.add(listSongs.get(position));
+                    Log.d("FavSong", listSongs.get(position).toString());
+                }
             }
         });
     }
@@ -195,18 +190,14 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 dialog.dismiss();
                 timerBtn.setImageResource(R.drawable.ic_timer_on);
                 min15 = true;
-                Log.d("timer", "min15 = " + min15);
+
                     Thread newThread = new Thread(() -> {
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep((long) 5000);
                             if (min15) {
                                 if (PlayerActivity.musicService != null) {
-                                    PlayerActivity.musicService.stopForeground(true);
-                                    PlayerActivity.musicService.mediaPlayer.release();
-                                    PlayerActivity.musicService = null;
+                                    PlayerActivity.musicService.pause();
                                 }
-//                                System.exit(1);
-//                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                 finish();
                             }
                         } catch (InterruptedException e) {
@@ -225,14 +216,12 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 min30 = true;
                 Thread newThread = new Thread(() -> {
                     try {
-                        Thread.sleep(30 * 60000);
-                        if (min15) {
+                        Thread.sleep((long) (30 * 60000));
+                        if (min30) {
                             if (PlayerActivity.musicService != null) {
-                                PlayerActivity.musicService.stopForeground(true);
-                                PlayerActivity.musicService.mediaPlayer.release();
-                                PlayerActivity.musicService = null;
+                                PlayerActivity.musicService.pause();
                             }
-                            System.exit(1);
+                            finish();
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -251,19 +240,16 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 min60 = true;
                 Thread newThread = new Thread(() -> {
                     try {
-                        Thread.sleep(60 * 60000);
-                        if (min15) {
+                        Thread.sleep((long) (60 * 60000));
+                        if (min60) {
                             if (PlayerActivity.musicService != null) {
-                                PlayerActivity.musicService.stopForeground(true);
-                                PlayerActivity.musicService.mediaPlayer.release();
-                                PlayerActivity.musicService = null;
+                                PlayerActivity.musicService.pause();
                             }
-                            System.exit(1);
+                            finish();
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 });
                 newThread.start();
             }
@@ -279,7 +265,31 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 timerBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showBottomSheetDialog();
+                        if (!min15 && !min30 && !min60)
+                            showBottomSheetDialog();
+                        else {
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(PlayerActivity.this);
+                            builder.setTitle("Stop timer")
+                                    .setMessage("Do you want to stop timer?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            min15 = false;
+                                            min30 = false;
+                                            min60 = false;
+                                            timerBtn.setImageResource(R.drawable.ic_timer);
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    });
+                            AlertDialog customDialog = builder.create();
+                            customDialog.show();
+                            customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+                            customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+                        }
                     }
                 });
             }
@@ -550,37 +560,35 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         String getClass = getIntent().getStringExtra("class");
         try {
             if (getClass.equals("NowPlaying")) {
-//                Log.e("Intent", "return song");
                 uri = Uri.parse(listSongs.get(position).getPath());
                 metaData(uri);
                 song_name.setText(listSongs.get(position).getTitle());
                 song_artist.setText(listSongs.get(position).getArtist());
                 seekBar.setMax(musicService.getDuration() / 1000);
-                if (musicService.isPlaying()) {
-                    playPauseBtn.setIconResource(R.drawable.ic_pause);
-                } else {
-                    playPauseBtn.setIconResource(R.drawable.ic_play);
+                if (musicService != null) {
+                    if (musicService.isPlaying()) {
+                        playPauseBtn.setIconResource(R.drawable.ic_play);
+                    } else {
+                        playPauseBtn.setIconResource(R.drawable.ic_pause);
+                    }
                 }
-//                PlayerActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (musicService != null) {
-//                            int mCurrentPosition = musicService.getCurrentPosition() / 1000;
-//                            seekBar.setProgress(mCurrentPosition);
-//                        }
-//                        handler.postDelayed(this, 1000);
-//                    }
-//                });
-            } else if (getClass.equals("PlaylistDetailsAdapter")) {
-                listSongs = new ArrayList<>();
-                listSongs.addAll(MusicPlaylist.ref.get(PlaylistDetails.currentPlaylistPos).getPlaylist());
+            } else if (getClass.equals("FavoriteAdapter")) {
+                listSongs = favoriteSongs;
                 if (listSongs != null) {
                     playPauseBtn.setIconResource(R.drawable.ic_pause);
                     uri = Uri.parse(listSongs.get(position).getPath());
                 }
                 Intent intent = new Intent(this, MusicService.class);
                 intent.putExtra("servicePosition", position);
-//                this.bindService(intent,this , BIND_AUTO_CREATE);
+                startService(intent);
+            } else if (getClass.equals("PlaylistDetailsAdapter")) {
+                listSongs = musicPlaylist.ref.get(currentPlaylistPos).getPlaylist();
+                if (listSongs != null) {
+                    playPauseBtn.setIconResource(R.drawable.ic_pause);
+                    uri = Uri.parse(listSongs.get(position).getPath());
+                }
+                Intent intent = new Intent(this, MusicService.class);
+                intent.putExtra("servicePosition", position);
                 startService(intent);
             }
             else {
@@ -592,7 +600,6 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
                 }
                 Intent intent = new Intent(this, MusicService.class);
                 intent.putExtra("servicePosition", position);
-//                this.bindService(intent,this , BIND_AUTO_CREATE);
                 startService(intent);
             }
         } catch (Exception e) {
@@ -616,6 +623,7 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
 //        frag_bottom_player = findViewById(R.id.frag_bottom_player);
         timerBtn = findViewById(R.id.timerBtnPA);
         shareBtn = findViewById(R.id.shareBtnPA);
+        favBtn = findViewById(R.id.favoriteBtn);
 //        getSupportActionBar().hide();
     }
 
@@ -685,6 +693,15 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
         MusicService.MyBinder myBinder = (MusicService.MyBinder) iBinder;
         musicService = myBinder.getService();
         musicService.setCallBack(this);
+
+        fIndex = MusicFiles.favoriteChecker(listSongs.get(position).getId());
+        Log.d("fIndex", "" + fIndex);
+        if (isFavorite) {
+            favBtn.setImageResource(R.drawable.ic_favorite_full);
+        } else {
+            favBtn.setImageResource(R.drawable.ic_favorite_border);
+        }
+
         seekBar.setMax(musicService.getDuration() / 1000);
         metaData(uri);
         song_name.setText(listSongs.get(position).getTitle());
@@ -697,4 +714,5 @@ public class PlayerActivity extends AppCompatActivity implements ActionPlaying, 
     public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
     }
+
 }

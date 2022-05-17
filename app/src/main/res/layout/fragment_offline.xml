@@ -3,13 +3,227 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_2"
+    android:orientation="vertical"
     tools:context=".OfflineFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:id="@+id/recyclerView"
-        android:background="@color/white">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/gradient_bg"
+        android:padding="30dp">
+
+
+        <TextView
+            android:id="@+id/name_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:singleLine="true"
+            android:text="John Cina"
+            android:textColor="@color/white"
+            android:textSize="20dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="45dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Address: Ha Noi"
+            android:textColor="@color/white"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/Birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="65dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="July 20th"
+            android:textColor="@color/white"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="104.0dp"
+            android:layout_height="104.0dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_ellipse1">
+
+        </ImageView>
+
+
+        <ImageButton
+            android:id="@+id/menu_button"
+            style="@style/image_button"
+            android:layout_marginLeft="300dp"
+            android:background="@drawable/menu"
+            android:onClick="Menu_button">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/heart_button"
+            style="@style/image_button"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/heart"
+            android:onClick="heart_button">
+
+        </ImageButton>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/topChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Top Chart singers"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginVertical="5dp">
+
+        </TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/list_chars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/singer1_img"
+            style="@style/buttonChars"
+            android:background="@drawable/billieeilish"
+            android:fontFamily="sans-serif-black"
+            android:gravity="bottom|center_horizontal"
+            android:onClick="singer1_button"
+            android:text="Singer1"
+            android:textSize="10dp">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/singer2_img"
+            style="@style/buttonChars"
+            android:background="@drawable/aururasinger"
+            android:fontFamily="sans-serif-black"
+            android:gravity="bottom|center_horizontal"
+            android:onClick="singer2_button"
+            android:text="Singer2"
+            android:textSize="10dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp">
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+        </Space>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Library"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-black">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/song_button"
+            style="@style/button_sample"
+            android:background="@drawable/gradient_button"
+            android:layout_marginStart="20dp"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_baseline_queue_music_24"
+            android:fontFamily="sans-serif-black"
+            android:text="Songs"
+            android:textColor="@color/white"
+            android:textSize="15sp">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/playlist_button"
+            style="@style/button_sample"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/gradient_button"
+            android:drawableLeft="@drawable/ic_baseline_library_music_24"
+            android:fontFamily="sans-serif-black"
+            android:text="Playlist"
+            android:onClick="albums_button"
+            android:textColor="@color/white"
+            android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/device_button"
+            style="@style/button_sample"
+            android:fontFamily="sans-serif-black"
+            android:text="devices"
+            android:background="@drawable/gradient_button"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_baseline_arrow_circle_down_24"
+            android:textColor="@color/white"
+            android:onClick="Device_button"
+            android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/Favorite"
+            style="@style/button_sample"
+            android:fontFamily="sans-serif-black"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_baseline_favorite_24"
+            android:text="Favorite"
+            android:onClick="favorite_button"
+            android:background="@drawable/gradient_button"
+            android:textColor="@color/white"
+            android:textSize="15dp">
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
+
