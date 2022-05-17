@@ -106,13 +106,20 @@ public class PlaylistDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
+//        Gson gson = new Gson();
+//        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+////        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
+//        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
+//        Log.d("JSON", jsonStringPlaylist);
+//        editor.putString("MusicPlaylist", jsonStringPlaylist);
+//        editor.apply();
+//        Log.d("gson", jsonStringPlaylist);
+
         Gson gson = new Gson();
         SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
-//        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
-        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
-        Log.d("JSON", jsonStringPlaylist);
+        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref);
+        Log.d("playlist", jsonStringPlaylist);
         editor.putString("MusicPlaylist", jsonStringPlaylist);
         editor.apply();
-        Log.d("gson", jsonStringPlaylist);
     }
 }

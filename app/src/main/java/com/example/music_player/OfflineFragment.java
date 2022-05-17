@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 public class OfflineFragment extends Fragment {
 
-    Button song_button, playlist_button;
+    Button song_button, playlist_button, favorite_button;
 
     public OfflineFragment() {
     }
@@ -23,7 +23,7 @@ public class OfflineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_offline, container, false);
         song_button = view.findViewById(R.id.song_button);
         playlist_button = view.findViewById(R.id.playlist_button);
-
+        favorite_button = view.findViewById(R.id.Favorite);
 
         song_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,14 +40,14 @@ public class OfflineFragment extends Fragment {
                 startActivity(intent);
             }
         });
-//        recyclerView = view.findViewById(R.id.recyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        if (!(musicFiles.size() < 1)) {
-//            musicAdapter = new MusicAdapter(getContext(), musicFiles);
-//            recyclerView.setAdapter(musicAdapter);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,
-//                    false));
-//        }
+
+        favorite_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

@@ -34,11 +34,6 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
         this.pContext = mContext;
     }
 
-//    @Override
-//    public void onBindViewHolder(@NonNull PlaylistViewAdapter holder, int position) {
-//
-//    }
-
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

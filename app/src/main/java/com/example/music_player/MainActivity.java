@@ -1,5 +1,6 @@
 package com.example.music_player;
 
+import static com.example.music_player.FavoriteActivity.favoriteSongs;
 import static com.example.music_player.PlaylistActivity.musicPlaylist;
 
 import android.Manifest;
@@ -28,7 +29,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.music_player.Fragment.OnlineFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -55,22 +59,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_main);
         permission();
 
+        favoriteSongs = new ArrayList<>();
         SharedPreferences editor = getSharedPreferences("FAVORITES", MODE_PRIVATE);
-//        String jsonString = editor.getString("FavoriteSongs", null);
-//        Object typeToken = new TypeToken<ArrayList<MusicFiles>>(){}.getType();
-//        if (jsonString != null) {
-//            ArrayList<MusicFiles> data = new GsonBuilder().create().fromJson(jsonString, (Type) typeToken);
-//        }
+        Gson gson = new Gson();
+        String jsonString = editor.getString("FavoriteSongs", null);
+        Type typeToken = new TypeToken<ArrayList<MusicFiles>>(){}.getType();
+        Type typeToken1 = new TypeToken<ArrayList<MusicPlaylist>>(){}.getType();
+        if (jsonString != null) {
+            ArrayList<MusicFiles> data = gson.fromJson(jsonString, typeToken);
+            favoriteSongs.addAll(data);
+        }
         musicPlaylist = new MusicPlaylist();
         String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
+        Log.d("playlist", jsonStringPlaylist);
         if (jsonStringPlaylist != null) {
-//            Gson gson = new Gson();
-////            MusicPlaylist dataPlaylist = new GsonBuilder().create().fromJson(jsonStringPlaylist, MusicPlaylist.class);
-////            musicPlaylist = dataPlaylist;
-//            musicPlaylist = gson.fromJson(jsonStringPlaylist, MusicPlaylist.class);
-//            TypeToken<ArrayList<Playlist>> token = new TypeToken<ArrayList<Playlist>>(){};
-//            Gson gson = new Gson();
-//            musicPlaylist.ref = gson.fromJson(jsonStringPlaylist, token.getType());// = gson.fromJson(jsonStringPlaylist, token.getType());
+            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
+//            musicPlaylist = dataPlaylist;
+//            for (MusicPlaylist.ref i : dataPlaylist.ref) {
+//                musicPlaylist.ref = i;
+//            }
         }
     }
 
@@ -293,14 +300,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             SONG_NAME_TO_FRAG = null;
         }
 
-//        Gson gson = new Gson();
-//        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
-////        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
-//        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
-//        Log.d("JSON", jsonStringPlaylist);
-//        editor.putString("MusicPlaylist", jsonStringPlaylist);
-//        editor.apply();
-////        Log.d("gson", jsonStringPlaylist);
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+        String jsonString = gson.toJson(favoriteSongs);
+        editor.putString("FavoriteSongs", jsonString);
+        String jsonStringPlaylist = gson.toJson(musicPlaylist);
+        editor.putString("MusicPlaylist", jsonStringPlaylist);
+        editor.apply();
     }
 
     @Override

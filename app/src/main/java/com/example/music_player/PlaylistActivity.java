@@ -42,9 +42,6 @@ public class PlaylistActivity extends AppCompatActivity {
                 customAlertDialog();
             }
         });
-
-//        if(!MusicPlaylist.ref.isEmpty())
-//            binding.instructionPA.visibility = View.GONE;
     }
 
     private void customAlertDialog() {
