@@ -35,7 +35,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SongListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Music_player.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="false" />

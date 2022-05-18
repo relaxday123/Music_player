@@ -1,6 +1,5 @@
 package com.example.music_player;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,7 +26,7 @@ public class SelectionActivity extends AppCompatActivity {
         binding.selectionRV.setItemViewCacheSize(30);
         binding.selectionRV.setHasFixedSize(true);
         binding.selectionRV.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MusicAdapter(this,true, MainActivity.musicFiles);
+        adapter = new MusicAdapter(this,true, SongActivity.musicFiles);
         binding.selectionRV.setAdapter(adapter);
 
         binding.backBtnSA.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +47,7 @@ public class SelectionActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 String userInput = newText.toLowerCase();
                 ArrayList<MusicFiles> myFiles = new ArrayList<>();
-                for (MusicFiles song : MainActivity.musicFiles) {
+                for (MusicFiles song : SongActivity.musicFiles) {
                     if (song.getTitle().toLowerCase().contains(userInput)) {
                         myFiles.add(song);
                     }
@@ -62,20 +61,5 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences preferences = getSharedPreferences(MainActivity.MUSIC_LAST_PLAYED, MODE_PRIVATE);
-        String path = preferences.getString(MainActivity.MUSIC_FILE, null);
-        String artist = preferences.getString(MainActivity.SONG_ARTIST, null);
-        String song_name = preferences.getString(MainActivity.SONG_NAME, null);
-        if (path != null) {
-            MainActivity.SHOW_MINI_PLAYER = true;
-            MainActivity.PATH_TO_FRAG = path;
-            MainActivity.ARTIST_TO_FRAG = artist;
-            MainActivity.SONG_NAME_TO_FRAG = song_name;
-        } else {
-            MainActivity.SHOW_MINI_PLAYER = false;
-            MainActivity.PATH_TO_FRAG = null;
-            MainActivity.ARTIST_TO_FRAG = null;
-            MainActivity.SONG_NAME_TO_FRAG = null;
-        }
     }
 }
