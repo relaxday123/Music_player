@@ -1,10 +1,10 @@
 package com.example.music_player;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.music_player.MainActivity.ARTIST_TO_FRAG;
-import static com.example.music_player.MainActivity.PATH_TO_FRAG;
-import static com.example.music_player.MainActivity.SHOW_MINI_PLAYER;
-import static com.example.music_player.MainActivity.SONG_NAME_TO_FRAG;
+import static com.example.music_player.SongActivity.ARTIST_TO_FRAG;
+import static com.example.music_player.SongActivity.PATH_TO_FRAG;
+import static com.example.music_player.SongActivity.SHOW_MINI_PLAYER;
+import static com.example.music_player.SongActivity.SONG_NAME_TO_FRAG;
 
 import android.content.ComponentName;
 import android.content.Context;

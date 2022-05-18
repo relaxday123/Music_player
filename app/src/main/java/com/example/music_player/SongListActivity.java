@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -132,14 +133,19 @@ public class SongListActivity extends AppCompatActivity {
     }
 
     private void init() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        getSupportActionBar().hide();
+        ActionBar actionBar = this.getSupportActionBar();
+         if (actionBar != null) {
+             setSupportActionBar(toolbar);
+             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     finish();
+                 }
+             });
+            actionBar.setDisplayHomeAsUpEnabled(true);
+         }
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         floatingActionButton.setEnabled(false);
@@ -153,7 +159,6 @@ public class SongListActivity extends AppCompatActivity {
         songlist = findViewById(R.id.songlist);
         floatingActionButton = findViewById(R.id.fplaybtn);
         imgslTheme = findViewById(R.id.imgslTheme);
-        toolbar = findViewById(R.id.toolbar);
     }
 
     private void DataIntent() {
@@ -178,7 +183,6 @@ public class SongListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SongListActivity.this,PlayerActivity2.class);
                 intent.putExtra("allSongs",songs);
-                if (PlayerActivity2.mediaPlayer.isPlaying()) PlayerActivity2.mediaPlayer.stop();
                 startActivity(intent);
             }
         });
