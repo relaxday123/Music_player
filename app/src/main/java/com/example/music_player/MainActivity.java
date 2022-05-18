@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
         musicPlaylist = new MusicPlaylist();
         String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
-        Log.d("playlist", jsonStringPlaylist);
+//1        Log.d("playlist", jsonStringPlaylist);
         if (jsonStringPlaylist != null) {
 //            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
 //            musicPlaylist = dataPlaylist;
@@ -67,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new OnlineFragment(), "Online");
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
+        viewPagerAdapter.addFragments(new SearchFragment(),"");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(2).setIcon(tabIcons[0]);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayShowCustomEnabled(true);
 //        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
