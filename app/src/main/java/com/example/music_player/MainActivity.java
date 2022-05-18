@@ -5,7 +5,6 @@ import static com.example.music_player.PlaylistActivity.musicPlaylist;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     public
     TabLayout tabLayout;
     ViewPager viewPager;
+    private int[] tabIcons = {
+            R.drawable.ic_search,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 //        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        View view = inflater.inflate(R.layout.titlebar_logo, null);
 //        getSupportActionBar().setCustomView(view);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
 //        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
 //        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
     }

@@ -39,7 +39,8 @@
             android:theme="@style/Theme.Music_player.NoActionBar"/>
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Music_player.NoActionBar"/>
         <activity
             android:name=".PlayerActivity"
             android:exported="true" />
