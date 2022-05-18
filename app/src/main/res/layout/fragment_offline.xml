@@ -74,8 +74,7 @@
             android:id="@+id/menu_button"
             style="@style/image_button"
             android:layout_marginLeft="300dp"
-            android:background="@drawable/menu"
-            android:onClick="Menu_button">
+            android:background="@drawable/menu">
 
         </ImageButton>
 
@@ -108,36 +107,44 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/list_chars"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="240dp"
+        android:layout_marginBottom="250dp"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:overScrollMode="never">
 
+    </androidx.viewpager.widget.ViewPager>
 
-        <Button
-            android:id="@+id/singer1_img"
-            style="@style/buttonChars"
-            android:background="@drawable/billieeilish"
-            android:fontFamily="sans-serif-black"
-            android:gravity="bottom|center_horizontal"
-            android:onClick="singer1_button"
-            android:text="Singer1"
-            android:textSize="10dp"></Button>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:id="@+id/singer1_img"-->
+<!--                    style="@style/buttonChars"-->
+<!--                    android:background="@drawable/billieeilish"-->
+<!--                    android:fontFamily="sans-serif-black"-->
+<!--                    android:gravity="bottom|center_horizontal"-->
+<!--                    android:onClick="singer1_button"-->
+<!--                    android:text="Singer1"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="10dp">-->
+<!--                    -->
+<!--                </androidx.appcompat.widget.AppCompatButton>-->
 
-        <Button
-            android:id="@+id/singer2_img"
-            style="@style/buttonChars"
-            android:background="@drawable/aururasinger"
-            android:fontFamily="sans-serif-black"
-            android:gravity="bottom|center_horizontal"
-            android:onClick="singer2_button"
-            android:text="Singer2"
-            android:textSize="10dp">
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/singer2_img"-->
+<!--        style="@style/buttonChars"-->
+<!--        android:background="@drawable/aururasinger"-->
+<!--        android:fontFamily="sans-serif-black"-->
+<!--        android:gravity="bottom|center_horizontal"-->
+<!--        android:onClick="singer2_button"-->
+<!--        android:text="Singer2"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="10dp">-->
 
-        </Button>
-    </LinearLayout>
+<!--    </androidx.appcompat.widget.AppCompatButton>-->
 
 
 
@@ -150,24 +157,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="380dp">
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"></Space>
+        android:layout_marginTop="500dp">
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="sans-serif-black"
             android:text="Library"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-black">
-        </TextView>
+            android:textSize="20dp"></TextView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="420dp">
+        android:layout_marginTop="540dp">
 
         <Button
             android:id="@+id/song_button"
@@ -190,14 +196,16 @@
             android:text="Albums"
             android:onClick="albums_button"
             android:textColor="@color/white"
-            android:textSize="15dp"></Button>
+            android:textSize="15dp">
+
+        </Button>
 
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp">
+        android:layout_marginTop="620dp">
 
         <Button
             android:id="@+id/device_button"
@@ -220,7 +228,6 @@
             android:background="@drawable/gradient_button"
             android:textColor="@color/white"
             android:textSize="15dp"></Button>
-
 
     </LinearLayout>
 

@@ -12,4 +12,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="blue">#87A6FF</color>
 
+    <color name="primary">#1b023b</color>
+    <color name="secondary">#ff03dac5</color>
 </resources>
