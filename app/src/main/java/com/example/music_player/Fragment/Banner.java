@@ -66,11 +66,7 @@ public class Banner extends Fragment {
                     public void run() {
                         curItem = viewPager.getCurrentItem();
                         curItem++;
-<<<<<<< Updated upstream
-                        if(curItem >= viewPager.getAdapter().getCount()) {
-=======
                         if(curItem >= 3) { //viewPager.getAdapter().getCount()
->>>>>>> Stashed changes
                             curItem = 0;
                         }
                         viewPager.setCurrentItem(curItem,true);
