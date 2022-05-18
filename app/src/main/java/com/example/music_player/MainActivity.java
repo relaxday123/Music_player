@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -48,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public static final String SONG_NAME = "SONG_NAME";
     public static final String SONG_ARTIST = "SONG_ARTIST";
     private String MY_SORT_PREF = "SortOrder";
+    private int[] tabIcons = {
+            R.drawable.ic_search,
+    };
 
     public
     TabLayout tabLayout;
@@ -71,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         musicPlaylist = new MusicPlaylist();
         String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
-        Log.d("playlist", jsonStringPlaylist);
+//1        Log.d("playlist", jsonStringPlaylist);
         if (jsonStringPlaylist != null) {
-            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
+//2            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
 //            musicPlaylist = dataPlaylist;
 //            for (MusicPlaylist.ref i : dataPlaylist.ref) {
 //                musicPlaylist.ref = i;
@@ -115,9 +117,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new OnlineFragment(), "Online");
         viewPagerAdapter.addFragments(new OfflineFragment(), "Offline");
-//        viewPagerAdapter.addFragments(new PlaylistFragment(), "Playlist");
+        viewPagerAdapter.addFragments(new SearchFragment(),"");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(2).setIcon(tabIcons[0]);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayShowCustomEnabled(true);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -283,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     protected void onResume() {
-//         super.onResume();
+         super.onResume();
 //         SharedPreferences preferences = getSharedPreferences(MUSIC_LAST_PLAYED, MODE_PRIVATE);
 //         String path = preferences.getString(MUSIC_FILE, null);
 //         String artist = preferences.getString(SONG_ARTIST, null);
@@ -328,28 +331,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 //        }
 //    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        SharedPreferences.Editor editor = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE).edit();
-        switch (item.getItemId()) {
-            case R.id.by_name:
-                editor.putString("sorting",  "sortByName");
-                editor.apply();
-                this.recreate();
-                break;
-            case R.id.by_date:
-                editor.putString("sorting",  "sortByDate");
-                editor.apply();
-                this.recreate();
-                break;
-            case R.id.by_size:
-                editor.putString("sorting",  "sortBySize");
-                editor.apply();
-                this.recreate();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        SharedPreferences.Editor editor = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE).edit();
+//        switch (item.getItemId()) {
+//            case R.id.by_name:
+//                editor.putString("sorting",  "sortByName");
+//                editor.apply();
+//                this.recreate();
+//                break;
+//            case R.id.by_date:
+//                editor.putString("sorting",  "sortByDate");
+//                editor.apply();
+//                this.recreate();
+//                break;
+//            case R.id.by_size:
+//                editor.putString("sorting",  "sortBySize");
+//                editor.apply();
+//                this.recreate();
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void onDestroy() {
