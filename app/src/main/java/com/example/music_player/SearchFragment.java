@@ -53,8 +53,8 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search,menu);
-        MenuItem menuItem = menu.findItem(R.id.search_option);
+        inflater.inflate(R.menu.online_search,menu);
+        MenuItem menuItem = menu.findItem(R.id.online_search_option);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
