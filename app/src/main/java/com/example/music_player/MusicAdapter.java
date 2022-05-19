@@ -103,7 +103,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                         intent.putExtra("position", holder.getAdapterPosition());
                         intent.putExtra("class", "CreateNewSong");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        mContext.startActivity(intent);
                         ContextCompat.startActivity(mContext, intent, null);
                     }
                 });
