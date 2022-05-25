@@ -1,5 +1,7 @@
 package com.example.music_player;
 
+import static com.example.music_player.PlayerActivity2.mediaPlayer;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -184,6 +186,7 @@ public class SongListActivity extends AppCompatActivity {
                 Intent intent = new Intent(SongListActivity.this,PlayerActivity2.class);
                 intent.putExtra("allSongs",songs);
                 startActivity(intent);
+                if (mediaPlayer.isPlaying()) mediaPlayer.stop();
             }
         });
     }
