@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pink"
     tools:context=".PlaylistDetails">
 
     <LinearLayout
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:background="@color/pink">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -43,26 +44,27 @@
         android:id="@+id/linearLayoutDetails"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:layout_below="@id/linearLayout">
+        android:layout_below="@id/linearLayout"
+        android:background="@color/pink"
+        android:orientation="horizontal">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/playlistImgPD"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:src="@drawable/images"
-            android:background="@color/white"/>
+            android:background="@color/pink"
+            android:src="@drawable/ic_baseline_album_24" />
 
         <TextView
             android:id="@+id/moreInfoPD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Playlist name"
-            android:gravity="center|start"
             android:layout_marginHorizontal="5dp"
+            android:background="@color/pink"
+            android:gravity="center|start"
+            android:text="Playlist name"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -71,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayoutDetails"
         android:layout_marginTop="10dp"
+        android:background="@drawable/round_back_white"
         android:paddingBottom="50dp"
         android:scrollbars="vertical" />
 
@@ -78,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@drawable/round_back_white"
         android:layout_alignParentBottom="true">
 
         <Button
@@ -89,7 +93,7 @@
             android:drawableLeft="@drawable/ic_add"
             android:text="Add"
             android:textAllCaps="false"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/removeAllPD"
@@ -100,7 +104,7 @@
             android:drawableLeft="@drawable/ic_remove"
             android:text="Remove"
             android:textAllCaps="false"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

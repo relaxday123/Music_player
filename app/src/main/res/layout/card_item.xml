@@ -16,16 +16,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/littlePink"
+            android:background="@color/primary"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/bannerTV"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop">
 
-            </ImageButton>
+            </ImageView>
 
             <TextView
                 android:id="@+id/titleTV"
@@ -34,6 +34,7 @@
                 android:layout_marginLeft="10dp"
                 android:padding="8dp"
                 android:text="the title"
+                android:textColor="@color/white"
                 android:textSize="18dp"></TextView>
 
             <TextView
@@ -42,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:minLines="3"

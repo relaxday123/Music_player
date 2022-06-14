@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/pink"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#79AAD1">
+            android:background="#1AFFFFFF">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -21,13 +22,15 @@
             android:id="@+id/RvsSongs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/appBar"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_below="@+id/appBar"
+            android:background="#1AFFFFFF"></androidx.recyclerview.widget.RecyclerView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RvSAlbum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/RvsSongs"
-            android:layout_marginTop="-2dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginTop="-2dp"
+            android:background="#1AFFFFFF"></androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 </ScrollView>

@@ -14,7 +14,7 @@
             android:layout_marginStart="20dp"
             android:background="#00555555"
             android:text="Maybe you want to listen"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
     </RelativeLayout>

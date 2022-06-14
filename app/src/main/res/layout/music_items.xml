@@ -5,34 +5,31 @@
     android:layout_height="wrap_content"
     android:id="@+id/audio_item"
     android:layout_marginTop="5dp"
-    android:background="#111111">
+    android:background="@drawable/round_back_white">
 
     <ImageView
+        android:id="@+id/music_img"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/music_img"
-        android:src="@mipmap/ic_launcher_round"
-        android:padding="5dp">
-    </ImageView>
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_album_24"></ImageView>
 
     <TextView
+        android:id="@+id/music_file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="File Name"
-        android:layout_toEndOf="@+id/music_img"
-        android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
-        android:textColor="@color/colorAccent"
+        android:layout_marginStart="10dp"
         android:layout_toStartOf="@+id/menuMore"
-        android:id="@+id/music_file_name">
-    </TextView>
+        android:layout_toEndOf="@+id/music_img"
+        android:text="File Name"
+        android:textColor="@color/colorAccent"></TextView>
 
     <ImageView
+        android:id="@+id/menuMore"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/menuMore"
-        android:src="@drawable/ic_more"
         android:layout_alignParentEnd="true"
-        android:padding="10dp">
-    </ImageView>
+        android:padding="10dp"
+        android:src="@drawable/ic_more"></ImageView>
 </RelativeLayout>

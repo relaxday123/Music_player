@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PlaylistActivity"
-    android:background="@color/grey">
+    android:background="@color/pink">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/linearLayout"
@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingBottom="40dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:background="@drawable/round_back_white"/>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
