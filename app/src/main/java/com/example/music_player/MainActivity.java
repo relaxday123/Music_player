@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
             favoriteSongs.addAll(data);
         }
 //        MusicPlaylist.ref = new ArrayList<Playlist>();
-        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
-        if (jsonStringPlaylist != null) {
-            ArrayList<Playlist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
-            for (Playlist i : dataPlaylist) {
-                MusicPlaylist.ref.add(i);
-            }
-        }
+//        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
+//        if (jsonStringPlaylist != null) {
+//            ArrayList<Playlist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
+//            for (Playlist i : dataPlaylist) {
+//                MusicPlaylist.ref.add(i);
+//            }
+//        }
     }
 
     private void initViewPager() {
