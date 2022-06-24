@@ -226,7 +226,8 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
         String userInput = newText.toLowerCase();
         ArrayList<MusicFiles> myFiles = new ArrayList<>();
         for (MusicFiles song : musicFiles) {
-            if (song.getTitle().toLowerCase().contains(userInput)) {
+            if (song.getTitle().toLowerCase().contains(userInput)
+                || song.getArtist().toLowerCase().contains(userInput)) {
                 myFiles.add(song);
             }
         }

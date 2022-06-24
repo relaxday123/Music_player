@@ -16,16 +16,28 @@
     </ImageView>
 
     <TextView
+        android:id="@+id/music_file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="File Name"
-        android:layout_toEndOf="@+id/music_img"
         android:layout_marginStart="10dp"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorAccent"
         android:layout_toStartOf="@+id/menuMore"
-        android:id="@+id/music_file_name">
-    </TextView>
+        android:layout_toEndOf="@+id/music_img"
+        android:layout_marginTop="15dp"
+        android:text="File Name"
+        android:textColor="@color/colorAccent"></TextView>
+
+    <TextView
+        android:id="@+id/music_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_toStartOf="@+id/menuMore"
+        android:layout_toEndOf="@+id/music_img"
+        android:layout_below="@+id/music_file_name"
+        android:text="File Name"
+        android:textSize="10dp"
+        android:textColor="@color/blue"></TextView>
 
     <ImageView
         android:layout_width="60dp"

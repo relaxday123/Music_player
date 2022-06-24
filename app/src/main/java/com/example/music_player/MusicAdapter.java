@@ -61,6 +61,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.file_name.setText(mFiles.get(holder.getAdapterPosition()).getTitle());
+        holder.artist.setText("Artist: " + mFiles.get(holder.getAdapterPosition()).getArtist());
         byte[] image = getAlbumArt(mFiles.get(holder.getAdapterPosition()).getPath());
         if (image != null) {
             Glide.with(mContext).asBitmap()
@@ -156,10 +157,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView file_name;
+        TextView file_name, artist;
         ImageView album_art, menuMore;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            artist = itemView.findViewById(R.id.music_artist);
             file_name = itemView.findViewById(R.id.music_file_name);
             album_art = itemView.findViewById(R.id.music_img);
             menuMore = itemView.findViewById(R.id.menuMore);
