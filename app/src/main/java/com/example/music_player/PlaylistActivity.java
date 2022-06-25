@@ -1,6 +1,7 @@
 package com.example.music_player;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class PlaylistActivity extends AppCompatActivity {
         binding.linearLayout.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new PlaylistViewAdapter(this, PlaylistViewAdapter.playlistList = musicPlaylist.ref);
         binding.linearLayout.setAdapter(adapter);
+        getSupportActionBar().hide();
 
         binding.addPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +92,21 @@ public class PlaylistActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences preferences = getSharedPreferences(SongActivity.MUSIC_LAST_PLAYED, MODE_PRIVATE);
+        String path = preferences.getString(SongActivity.MUSIC_FILE, null);
+        String artist = preferences.getString(SongActivity.SONG_ARTIST, null);
+        String song_name = preferences.getString(SongActivity.SONG_NAME, null);
+        if (path != null) {
+            SongActivity.SHOW_MINI_PLAYER = true;
+            SongActivity.PATH_TO_FRAG = path;
+            SongActivity.ARTIST_TO_FRAG = artist;
+            SongActivity.SONG_NAME_TO_FRAG = song_name;
+        } else {
+            SongActivity.SHOW_MINI_PLAYER = false;
+            SongActivity.PATH_TO_FRAG = null;
+            SongActivity.ARTIST_TO_FRAG = null;
+            SongActivity.SONG_NAME_TO_FRAG = null;
+        }
         adapter.notifyDataSetChanged();
     }
 }

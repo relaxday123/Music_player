@@ -269,7 +269,7 @@ public class PlayerActivity2 extends AppCompatActivity {
 //        frag_bottom_player = findViewById(R.id.frag_bottom_player);
         timerBtn = findViewById(R.id.timerBtnPA);
         shareBtn = findViewById(R.id.shareBtnPA);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         f_disk = new F_Disk();
         f_playerListSong = new F_PlayerListSong();
         playerVPager = new PlayerVPager(getSupportFragmentManager());

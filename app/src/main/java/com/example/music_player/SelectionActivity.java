@@ -35,7 +35,7 @@ public class SelectionActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         binding.searchViewSA.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

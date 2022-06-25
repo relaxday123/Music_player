@@ -1,5 +1,6 @@
 package com.example.music_player;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -33,5 +34,26 @@ public class FavoriteActivity extends AppCompatActivity {
         binding.favoriteRV.setLayoutManager(new GridLayoutManager(this, 4));
         adapter = new FavoriteAdapter(this, favoriteSongs);
         binding.favoriteRV.setAdapter(adapter);
+        getSupportActionBar().hide();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences(SongActivity.MUSIC_LAST_PLAYED, MODE_PRIVATE);
+        String path = preferences.getString(SongActivity.MUSIC_FILE, null);
+        String artist = preferences.getString(SongActivity.SONG_ARTIST, null);
+        String song_name = preferences.getString(SongActivity.SONG_NAME, null);
+        if (path != null) {
+            SongActivity.SHOW_MINI_PLAYER = true;
+            SongActivity.PATH_TO_FRAG = path;
+            SongActivity.ARTIST_TO_FRAG = artist;
+            SongActivity.SONG_NAME_TO_FRAG = song_name;
+        } else {
+            SongActivity.SHOW_MINI_PLAYER = false;
+            SongActivity.PATH_TO_FRAG = null;
+            SongActivity.ARTIST_TO_FRAG = null;
+            SongActivity.SONG_NAME_TO_FRAG = null;
+        }
     }
 }

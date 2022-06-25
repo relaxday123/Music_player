@@ -37,28 +37,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViewPager();
-//        permission();
 
         favoriteSongs = new ArrayList<>();
         SharedPreferences editor = getSharedPreferences("FAVORITES", MODE_PRIVATE);
         Gson gson = new Gson();
         String jsonString = editor.getString("FavoriteSongs", null);
         Type typeToken = new TypeToken<ArrayList<MusicFiles>>(){}.getType();
-        Type typeToken1 = new TypeToken<ArrayList<MusicPlaylist>>(){}.getType();
+        Type typeToken1 = new TypeToken<ArrayList<Playlist>>(){}.getType();
         if (jsonString != null) {
             ArrayList<MusicFiles> data = gson.fromJson(jsonString, typeToken);
             favoriteSongs.addAll(data);
         }
-        musicPlaylist = new MusicPlaylist();
-        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
-//1        Log.d("playlist", jsonStringPlaylist);
-        if (jsonStringPlaylist != null) {
-//            ArrayList<MusicPlaylist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
-//            musicPlaylist = dataPlaylist;
-//            for (MusicPlaylist.ref i : dataPlaylist.ref) {
-//                musicPlaylist.ref = i;
+//        MusicPlaylist.ref = new ArrayList<Playlist>();
+//        String jsonStringPlaylist = editor.getString("MusicPlaylist", null);
+//        if (jsonStringPlaylist != null) {
+//            ArrayList<Playlist> dataPlaylist = gson.fromJson(jsonStringPlaylist, typeToken1);
+//            for (Playlist i : dataPlaylist) {
+//                MusicPlaylist.ref.add(i);
 //            }
-        }
+//        }
     }
 
     private void initViewPager() {
@@ -71,14 +68,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(2).setIcon(tabIcons[0]);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        getSupportActionBar().setDisplayShowCustomEnabled(true);
-//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View view = inflater.inflate(R.layout.titlebar_logo, null);
-//        getSupportActionBar().setCustomView(view);
-//        getSupportActionBar().hide();
-//        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
-//        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
     }
 
 

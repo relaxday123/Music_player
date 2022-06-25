@@ -44,10 +44,6 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
     public static final String SONG_NAME = "SONG_NAME";
     public static final String SONG_ARTIST = "SONG_ARTIST";
     private String MY_SORT_PREF = "SortOrder";
-//    public static final String MUSIC_LAST_PLAYED = "LAST_PLAYED";
-//    public static final String MUSIC_FILE = "STORED_MUSIC";
-//    public static final String SONG_NAME = "SONG_NAME";
-//    public static final String SONG_ARTIST = "SONG_ARTIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +69,6 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         else {
             musicFiles = getAllAudio(this);
-//            initViewPager();
         }
     }
 
@@ -84,7 +79,6 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Do whatever you want permission related
                 musicFiles = getAllAudio(this);
-//                initViewPager();
             }
             else {
                 ActivityCompat.requestPermissions(SongActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
@@ -99,9 +93,6 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.titlebar_logo, null);
         getSupportActionBar().setCustomView(view);
-//        getSupportActionBar().hide();
-//        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
-//        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
     }
 
     public ArrayList<MusicFiles> getAllAudio(Context context) {
@@ -235,7 +226,8 @@ public class SongActivity extends AppCompatActivity implements SearchView.OnQuer
         String userInput = newText.toLowerCase();
         ArrayList<MusicFiles> myFiles = new ArrayList<>();
         for (MusicFiles song : musicFiles) {
-            if (song.getTitle().toLowerCase().contains(userInput)) {
+            if (song.getTitle().toLowerCase().contains(userInput)
+                || song.getArtist().toLowerCase().contains(userInput)) {
                 myFiles.add(song);
             }
         }
