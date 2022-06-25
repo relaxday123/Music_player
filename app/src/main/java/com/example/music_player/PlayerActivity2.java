@@ -276,7 +276,7 @@ public class PlayerActivity2 extends AppCompatActivity {
         playerVPager.AddFrag(f_disk);
         playerVPager.AddFrag(f_playerListSong);
         viewPager.setAdapter(playerVPager);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         f_disk = (F_Disk) playerVPager.getItem(0);
 //        Log.d("ooooo",listsongs.get(0).getSongName());
         if (listsongs.size() > 0 ) {
@@ -313,7 +313,6 @@ public class PlayerActivity2 extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            if (mediaPlayer.isPlaying()) mediaPlayer.stop();
             mediaPlayer.start();
             Log.d("BBBBBB","songplayed");
             SongDuration();

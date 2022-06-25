@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pink"
     tools:context=".SelectionActivity">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:background="@android:color/transparent"
             android:scaleX="0.5"
             android:id="@+id/backBtnSA"
-            app:tint="@color/black"
+            app:tint="@color/white"
             android:layout_margin="5dp">
         </ImageButton>
 
@@ -29,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:queryHint="search song"
+
             android:focusable="false"
             app:iconifiedByDefault="false"
             android:background="@drawable/custom_search_view"
@@ -42,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/round_back_white"
         android:scrollbars="vertical" />
 
 </RelativeLayout>

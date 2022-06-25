@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pink"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
@@ -11,20 +12,17 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:tabIndicatorColor="#009688"
+        android:background="#00555555"
+        app:tabIndicatorColor="#1AFFFFFF"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="center"
         app:tabIndicatorHeight="40dp"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tab_layout"
-        >
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_below="@id/tab_layout"></androidx.viewpager.widget.ViewPager>
 </RelativeLayout>

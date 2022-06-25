@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_2"
+    android:background="@color/pink"
     android:orientation="vertical"
-    tools:context=".OfflineFragment">
+    tools:context=".OfflineFragment"
+    >
 
     <RelativeLayout
         android:id="@+id/recyclerView"
@@ -73,8 +74,7 @@
             android:id="@+id/menu_button"
             style="@style/image_button"
             android:layout_marginLeft="300dp"
-            android:background="@drawable/menu"
-            android:onClick="Menu_button">
+            android:background="@drawable/menu">
 
         </ImageButton>
 
@@ -96,114 +96,119 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/topChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="Top Chart singers"
             android:textSize="20dp"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginVertical="5dp">
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-black">
 
         </TextView>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/list_chars"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="240dp"
+        android:layout_marginBottom="250dp"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:overScrollMode="never">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/singer1_img"
-            style="@style/buttonChars"
-            android:background="@drawable/billieeilish"
-            android:fontFamily="sans-serif-black"
-            android:gravity="bottom|center_horizontal"
-            android:onClick="singer1_button"
-            android:text="Singer1"
-            android:textSize="10dp">
-        </androidx.appcompat.widget.AppCompatButton>
+    </androidx.viewpager.widget.ViewPager>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/singer2_img"
-            style="@style/buttonChars"
-            android:background="@drawable/aururasinger"
-            android:fontFamily="sans-serif-black"
-            android:gravity="bottom|center_horizontal"
-            android:onClick="singer2_button"
-            android:text="Singer2"
-            android:textSize="10dp">
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--                    android:id="@+id/singer1_img"-->
+    <!--                    style="@style/buttonChars"-->
+    <!--                    android:background="@drawable/billieeilish"-->
+    <!--                    android:fontFamily="sans-serif-black"-->
+    <!--                    android:gravity="bottom|center_horizontal"-->
+    <!--                    android:onClick="singer1_button"-->
+    <!--                    android:text="Singer1"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:textSize="10dp">-->
+    <!--                    -->
+    <!--                </androidx.appcompat.widget.AppCompatButton>-->
 
-        </androidx.appcompat.widget.AppCompatButton>
-    </LinearLayout>
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/singer2_img"-->
+    <!--        style="@style/buttonChars"-->
+    <!--        android:background="@drawable/aururasinger"-->
+    <!--        android:fontFamily="sans-serif-black"-->
+    <!--        android:gravity="bottom|center_horizontal"-->
+    <!--        android:onClick="singer2_button"-->
+    <!--        android:text="Singer2"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="10dp">-->
 
+    <!--    </androidx.appcompat.widget.AppCompatButton>-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="380dp">
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp">
-        </Space>
+        android:layout_marginTop="500dp">
+
 
         <TextView
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="sans-serif-black"
             android:text="Library"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-black">
-        </TextView>
+            android:textColor="@color/white"
+            android:textSize="20dp"></TextView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="420dp">
+        android:layout_marginTop="540dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/song_button"
             style="@style/button_sample"
+            android:paddingStart="20dp"
             android:background="@drawable/gradient_button"
-            android:layout_marginStart="20dp"
-            android:paddingHorizontal="20dp"
+            android:layout_marginLeft="20dp"
             android:drawableLeft="@drawable/ic_baseline_queue_music_24"
             android:fontFamily="sans-serif-black"
             android:text="Songs"
             android:textColor="@color/white"
-            android:textSize="15sp">
-        </androidx.appcompat.widget.AppCompatButton>
+            android:onClick="Song_button"
+            android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/playlist_button"
             style="@style/button_sample"
-            android:paddingHorizontal="20dp"
             android:background="@drawable/gradient_button"
             android:drawableLeft="@drawable/ic_baseline_library_music_24"
             android:fontFamily="sans-serif-black"
-            android:text="Playlist"
+            android:text="Albums"
+            android:paddingStart="20dp"
             android:onClick="albums_button"
             android:textColor="@color/white"
-            android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
+            android:textSize="15dp">
+
+        </androidx.appcompat.widget.AppCompatButton>
 
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp">
+        android:layout_marginTop="620dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/device_button"
             style="@style/button_sample"
             android:fontFamily="sans-serif-black"
             android:text="devices"
+            android:paddingStart="20dp"
             android:background="@drawable/gradient_button"
-            android:paddingHorizontal="20dp"
             android:drawableLeft="@drawable/ic_baseline_arrow_circle_down_24"
             android:textColor="@color/white"
             android:onClick="Device_button"
@@ -213,17 +218,14 @@
             android:id="@+id/Favorite"
             style="@style/button_sample"
             android:fontFamily="sans-serif-black"
-            android:paddingHorizontal="20dp"
             android:drawableLeft="@drawable/ic_baseline_favorite_24"
             android:text="Favorite"
+            android:paddingStart="20dp"
             android:onClick="favorite_button"
             android:background="@drawable/gradient_button"
             android:textColor="@color/white"
-            android:textSize="15dp">
-        </androidx.appcompat.widget.AppCompatButton>
-
+            android:textSize="15dp"></androidx.appcompat.widget.AppCompatButton>
 
     </LinearLayout>
 
 </RelativeLayout>
-

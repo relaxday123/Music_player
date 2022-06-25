@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/audio_item"
     android:layout_marginTop="5dp"
-    android:background="#111111">
+    android:background="@drawable/round_back_white">
 
     <ImageView
         android:layout_width="60dp"
@@ -20,24 +20,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:layout_toStartOf="@+id/menuMore"
         android:layout_toEndOf="@+id/music_img"
-        android:layout_marginTop="15dp"
         android:text="File Name"
-        android:textColor="@color/colorAccent"></TextView>
+        android:textColor="@color/white"></TextView>
 
     <TextView
         android:id="@+id/music_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/music_file_name"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toStartOf="@+id/menuMore"
         android:layout_toEndOf="@+id/music_img"
-        android:layout_below="@+id/music_file_name"
         android:text="File Name"
-        android:textSize="10dp"
-        android:textColor="@color/blue"></TextView>
+        android:textColor="@color/white"
+        android:textSize="10dp"></TextView>
 
     <ImageView
         android:layout_width="60dp"
