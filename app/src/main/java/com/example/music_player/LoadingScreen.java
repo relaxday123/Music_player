@@ -47,7 +47,7 @@ public class LoadingScreen extends AppCompatActivity {
             @Override
             public void run(){
                 try {
-                    sleep(3000);
+                    sleep(0);
                     finish();
                 }
                 catch (InterruptedException e){

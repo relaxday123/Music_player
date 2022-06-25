@@ -6,26 +6,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rlrandomSong">
-
         <TextView
             android:id="@+id/tvtitle3"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:background="#00555555"
-            android:text="Maybe you want to listen"
-            android:textColor="@color/white"
+            android:text="  If you don't know what to listen!"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:background="#9E9E9E"
+            android:textStyle="bold"/>
     </RelativeLayout>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvrandomSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_back_white"
-        android:layout_below="@+id/rlrandomSong"
+        android:id="@+id/rvrandomSong"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/rlrandomSong"/>
 
 </RelativeLayout>
