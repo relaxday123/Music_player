@@ -1,7 +1,5 @@
 package com.example.music_player.Adapter;
 
-import static com.example.music_player.PlayerActivity2.mediaPlayer;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -98,7 +96,6 @@ public class RandomSongAdapter extends RecyclerView.Adapter<RandomSongAdapter.Vi
                     Intent intent = new Intent(context, PlayerActivity2.class);
                     intent.putExtra("Song",rdsong.get(getPosition()));
                     context.startActivity(intent);
-                    if (mediaPlayer.isPlaying()) mediaPlayer.stop();
                 }
             });
         }

@@ -32,12 +32,18 @@ public class PlaylistDetails extends AppCompatActivity {
         setContentView(binding.getRoot());
         currentPlaylistPos = getIntent().getIntExtra("index", -1);
 
+//        try {
+//            MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist() =
+//                checkPlaylist(playlist = PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist)}
+//        catch(e: Exception){}
+
         binding.playlistDetailsRV.setItemViewCacheSize(10);
         binding.playlistDetailsRV.setHasFixedSize(true);
         binding.playlistDetailsRV.setLayoutManager(new LinearLayoutManager(this));
+//        MusicPlaylist.ref.get(currentPlaylistPos).getPlaylist().addAll(MainActivity.musicFiles);
         adapter = new MusicAdapter(this, musicPlaylist.ref.get(currentPlaylistPos).getPlaylist(), true);
         binding.playlistDetailsRV.setAdapter(adapter);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         binding.returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +105,15 @@ public class PlaylistDetails extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        Gson gson = new Gson();
+//        SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
+////        String jsonStringPlaylist = new GsonBuilder().create().toJson(musicPlaylist);
+//        String jsonStringPlaylist = gson.toJson(musicPlaylist.ref.get(0).getPlaylist());
+//        Log.d("JSON", jsonStringPlaylist);
+//        editor.putString("MusicPlaylist", jsonStringPlaylist);
+//        editor.apply();
+//        Log.d("gson", jsonStringPlaylist);
 
         Gson gson = new Gson();
         SharedPreferences.Editor editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit();
