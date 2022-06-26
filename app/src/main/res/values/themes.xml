@@ -34,4 +34,24 @@
 
     <style name="Theme.Music_player.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="nightModeSwitch" parent="Theme.AppCompat.Light">
+
+        <item name="colorControlActivated">@color/night_mode</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <item name="android:colorForeground">#99FFFFFF</item>
+    </style>
+
+    <style name="notificationsSwitch" parent="Theme.AppCompat.Light">
+
+        <item name="colorControlActivated">@color/notifications</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <item name="android:colorForeground">#99FFFFFF</item>
+    </style>
+
+    <style name="privateAccountSwitch" parent="Theme.AppCompat.Light">
+
+        <item name="colorControlActivated">@color/private_account</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <item name="android:colorForeground">#99FFFFFF</item>
+    </style>
 </resources>

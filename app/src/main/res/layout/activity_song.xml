@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pink"
     tools:context=".SongActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:background="@color/white">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:background="@drawable/round_back_white"></androidx.recyclerview.widget.RecyclerView>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/frag_bottom_player">
+
         <fragment
+            android:name="com.example.music_player.NowPlayingBottomFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.example.music_player.NowPlayingBottomFragment"
-            tools:layout="@layout/fragment_now_playing_bottom">
-        </fragment>
+            tools:layout="@layout/fragment_now_playing_bottom"></fragment>
     </FrameLayout>
 
 </RelativeLayout>

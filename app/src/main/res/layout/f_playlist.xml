@@ -3,25 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+
     <TextView
         android:id="@+id/tvtitle1"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="  Playlist"
-        android:textColor="@color/black"
+        android:background="#00555555"
+        android:text="Playlist"
+        android:textColor="@color/white"
         android:textSize="20dp"
-        android:background="#9E9E9E"
-        android:textStyle="bold"
-        >
+        android:textStyle="bold">
 
     </TextView>
 
     <ListView
-        android:layout_marginTop="30dp"
         android:id="@+id/listviewplaylist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"></ListView>
 
 
 </RelativeLayout>

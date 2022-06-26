@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     tools:context=".Fragment.OnlineFragment"
-    android:background="#FFFFFF"
+    android:background="@color/pink"
     android:fillViewport="true"
     android:scrollbars="none">
 
@@ -31,7 +31,8 @@
         <fragment
             android:id="@+id/fragmentbanner"
             android:name="com.example.music_player.Fragment.Banner"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
+            android:layout_marginLeft="25dp"
             android:layout_height="160dp">
 
         </fragment>
@@ -39,10 +40,10 @@
         <fragment
             android:id="@+id/fragmentplaylist"
             android:name="com.example.music_player.Fragment.F_Playlist"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="200dp">
-        </fragment>
+            android:layout_width="380dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"></fragment>
 
         <fragment
             android:id="@+id/fragmentalbum"
