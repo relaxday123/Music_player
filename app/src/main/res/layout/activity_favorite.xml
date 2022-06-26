@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FavoriteActivity"
-    android:background="@color/pink">
+    android:background="@drawable/gradient_2">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -20,7 +20,7 @@
             android:layout_height="40dp"
             android:src="@drawable/ic_back"
             android:backgroundTint="@android:color/transparent"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:scaleX="0.5"
             android:layout_margin="5dp"
             android:padding="5dp"/>
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Favorites"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:paddingEnd="50dp"/>
     </LinearLayout>
@@ -39,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="9dp"
-        android:background="@drawable/round_back_white" />
+        android:layout_marginTop="5dp"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addPlaylist"
@@ -56,16 +55,17 @@
         android:layout_marginBottom="80dp"/>
 
     <FrameLayout
-        android:id="@+id/frag_bottom_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frag_bottom_player">
 
         <fragment
-            android:name="com.example.music_player.NowPlayingBottomFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_now_playing_bottom"></fragment>
+            android:name="com.example.music_player.NowPlayingBottomFragment"
+            tools:layout="@layout/fragment_now_playing_bottom">
+        </fragment>
 
     </FrameLayout>
 

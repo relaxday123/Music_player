@@ -15,18 +15,17 @@
             android:text="1"
             android:textSize="20dp"
             android:layout_margin="12dp"/>
-
         <TextView
             android:id="@+id/tvslsongName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/tvindexsong"
-            android:ellipsize="end"
             android:maxWidth="250dp"
+            android:ellipsize="end"
             android:maxLines="1"
+            android:layout_toRightOf="@+id/tvindexsong"
             android:text="test"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tvslsongArtist"

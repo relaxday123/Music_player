@@ -17,9 +17,6 @@
         android:theme="@style/Theme.Music_player"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
             android:name=".FavoriteActivity"
             android:exported="false" />
         <activity
@@ -39,11 +36,11 @@
         <activity
             android:name=".SongListActivity"
             android:exported="false"
-            android:theme="@style/Theme.Music_player.NoActionBar" />
+            android:theme="@style/Theme.Music_player.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.Music_player.NoActionBar" />
+            android:theme="@style/Theme.Music_player.NoActionBar"/>
         <activity
             android:name=".PlayerActivity"
             android:exported="true" />

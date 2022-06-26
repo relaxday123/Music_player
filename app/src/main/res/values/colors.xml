@@ -12,14 +12,4 @@
     <color name="colorAccent">#D81B60</color>
     <color name="blue">#87A6FF</color>
 
-    <color name="primary">#1b023b</color>
-    <color name="secondary">#ff03dac5</color>
-    <color name="night_mode">#6124B1</color>
-    <color name="notifications">#13b2c3</color>
-    <color name="private_account">#e6a326</color>
-    <color name="security">#d95f69</color>
-    <color name="orange">#fe6c3a</color>
-    <color name="grey">#9eacb7</color>
-    <color name="pink">#2E0249</color>
-    <color name="littlePink">#A91079</color>
 </resources>

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/pink"
     tools:context=".SongListActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:fitsSystemWindows="true"
@@ -49,18 +48,15 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_play"
         android:id="@+id/fplaybtn"/>
-
     <androidx.core.widget.NestedScrollView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/songlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_back_white"/>
+            android:id="@+id/songlist"/>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
